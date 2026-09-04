@@ -1,3 +1,10 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
 <title>69 Monkeys</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Permanent+Marker&family=Work+Sans:wght@400;500;600;700&display=swap">
 <style>
@@ -107,7 +114,7 @@
   }
   .nav-scrim.open{display:block;opacity:1;}
 
-  @media (max-width:820px){
+  @media (max-width:820px), (max-height:520px) and (orientation:landscape){
     nav{grid-template-columns:1fr auto;align-items:center;padding-top:18px;padding-bottom:18px;}
     .nav-toggle{display:inline-flex;align-items:center;justify-content:center;}
     .nav-panel{
@@ -235,9 +242,9 @@
     .nav-links{gap:14px;}
     nav .brand-tag{display:none;}
     .mk-logo{width:52px;}
-    .hero-content{padding-bottom:48px;}
+    .hero-content{padding-bottom:28px;}
     .cta-row{gap:16px;}
-    .kids-btn{right:18px;bottom:48px;padding:11px 18px;font-size:12px;}
+    .kids-btn{position:static;align-self:flex-start;margin:22px 0 32px 28px;padding:11px 18px;font-size:12px;}
     .nav-panel{width:min(86vw,300px);padding:80px 24px 24px;}
   }
   @media (max-width:420px){
@@ -598,3 +605,6 @@
   }
 })();
 </script>
+
+</body>
+</html>
