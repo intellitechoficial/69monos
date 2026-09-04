@@ -244,6 +244,33 @@
     .brand-name{font-size:22px;}
     .footer-bottom .mk-logo--lg{width:64px;}
   }
+
+  /* ---------- larger mobile type (readability on phones) ---------- */
+  @media (max-width:760px){
+    .eyebrow{font-size:13px;}
+    .subtitle{font-size:17px;}
+    .fact-num{font-size:24px;}
+    .fact-label{font-size:13px;}
+    .step h3{font-size:19px;}
+    .step p{font-size:14.5px;}
+    .footer-sub{font-size:16px;}
+    .footer-bottom .nav-link{font-size:13px;}
+    .text-link{font-size:14px;}
+    .stamp-btn{font-size:15px;}
+  }
+
+  /* ---------- short/landscape phones: keep nav from overlapping hero text ---------- */
+  @media (max-height:520px) and (orientation:landscape){
+    nav{padding:12px 20px;}
+    nav .brand-tag{display:none;}
+    .mk-logo{width:46px;}
+    .hero-content{padding-top:96px;padding-bottom:20px;}
+    .hero-content h1{font-size:clamp(22px,5vw,34px);}
+    .subtitle{font-size:14px;margin:10px 0 16px;}
+    .eyebrow{margin-bottom:8px;}
+    .cta-row{gap:12px;}
+    .kids-btn{right:16px;bottom:14px;padding:9px 16px;font-size:11px;}
+  }
 </style>
 
 <section class="hero" id="heroMedia">
