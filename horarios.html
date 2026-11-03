@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Horarios · 69 Monkeys</title>
+<meta name="description" content="Horarios de clases de 69 Monkeys en Cornellà de Llobregat. Marca tu rutina y descárgala en PDF.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Permanent+Marker&family=Work+Sans:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="css/estilos.css">
+<style>
+  /* ---------- cabecera corta ---------- */
+  .hero--short{min-height:58vh;min-height:58svh;}
+  .hero--short .hero-media img{object-position:50% 60%;}
+  .hero--short .hero-content{padding-top:150px;padding-bottom:56px;}
+  .hero--short h1{max-width:none;}
+
+  /* ---------- bloque horario ---------- */
+  .schedule{position:relative;z-index:1;max-width:1180px;margin:0 auto;padding:64px 28px 100px;}
+  .schedule .section-head{margin-bottom:34px;}
+  .schedule .section-head p.lead{margin:16px 0 0;color:var(--ink);font-size:15px;line-height:1.6;max-width:56ch;}
+
+  .tabs{display:flex;gap:6px;border-bottom:1px solid var(--line);margin-bottom:22px;flex-wrap:wrap;}
+  .tab{
+    appearance:none;background:none;border:0;cursor:pointer;
+    font-family:var(--display);font-size:18px;letter-spacing:.04em;text-transform:uppercase;
+    color:var(--ink-dim);padding:12px 18px 14px;margin-bottom:-1px;
+    border-bottom:3px solid transparent;transition:color .2s ease,border-color .2s ease;
+  }
+  .tab:hover{color:var(--paper);}
+  .tab[aria-selected="true"]{color:var(--paper);border-bottom-color:var(--magenta);}
+  .tab .tab-count{
+    display:inline-grid;place-items:center;min-width:22px;height:22px;padding:0 6px;margin-left:8px;
+    border-radius:11px;background:var(--yellow);color:#1a1405;font-size:12px;vertical-align:2px;
+  }
+  .tab .tab-count[hidden]{display:none;}
+
+  .toolbar{display:flex;align-items:center;justify-content:space-between;gap:18px 28px;flex-wrap:wrap;margin-bottom:22px;}
+  .legend{display:flex;flex-wrap:wrap;gap:8px 18px;margin:0;padding:0;list-style:none;}
+  .legend li{display:flex;align-items:center;gap:8px;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink);}
+  .legend .sw{width:12px;height:12px;border-radius:2px;flex:none;}
+  .legend .sw-mine{background:var(--yellow);box-shadow:2px 2px 0 var(--magenta);}
+  .actions{display:flex;align-items:center;gap:22px;flex-wrap:wrap;}
+  .counter{font-size:13px;color:var(--ink);}
+  .counter strong{font-family:var(--display);font-weight:400;color:var(--yellow);font-size:18px;letter-spacing:.02em;margin-right:4px;}
+  button.text-link{background:none;border:0;padding:0;cursor:pointer;}
+  button.text-link:disabled{opacity:.35;cursor:default;pointer-events:none;}
+  button.stamp-btn{border:0;cursor:pointer;}
+  button.stamp-btn:disabled{background:#4a3f36;color:var(--ink-dim);box-shadow:4px 4px 0 #2c241d;cursor:not-allowed;transform:none;}
+  .stamp-btn svg{flex:none;}
+
+  /* ---------- tabla (escritorio) ---------- */
+  .grid-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;}
+  table.sched{width:100%;border-collapse:separate;border-spacing:6px;table-layout:fixed;margin:0 -6px;min-width:760px;}
+  .sched th{
+    font-family:var(--display);font-weight:400;text-transform:uppercase;letter-spacing:.06em;font-size:14px;
+    color:var(--paper);background:var(--bg-raised);border-top:3px solid var(--magenta);
+    padding:12px 6px;text-align:center;
+  }
+  .sched th.col-time{width:118px;border-top-color:var(--brass);text-align:left;padding-left:14px;}
+  .sched--kids th.col-time{width:170px;}
+  .sched td{padding:0;height:66px;vertical-align:stretch;}
+  .sched td.row-time{padding:0 6px 0 14px;vertical-align:middle;}
+  .row-time .t{font-family:var(--display);font-size:17px;color:var(--paper);letter-spacing:.03em;display:block;line-height:1.25;}
+  .row-time .g{font-family:var(--display);font-size:16px;color:var(--paper);letter-spacing:.04em;text-transform:uppercase;display:block;}
+  .row-time .e{font-size:12px;color:var(--ink-dim);display:block;margin-top:2px;}
+  .row-time .g + .e + .t{font-size:14px;color:var(--yellow);margin-top:4px;}
+  .sched tr.group td{height:auto;padding:18px 0 4px 14px;}
+  .sched tr.group span{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--brass);font-family:var(--display);}
+  .sched tr.group:first-child td{padding-top:4px;}
+  .empty{display:block;height:100%;border:1px dashed var(--line);border-radius:3px;opacity:.6;}
+
+  .cls{
+    --c:#ccc;
+    position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;
+    width:100%;height:100%;min-height:66px;padding:8px 10px 8px 14px;
+    background:linear-gradient(90deg, color-mix(in srgb, var(--c) 16%, transparent), color-mix(in srgb, var(--c) 7%, transparent));
+    background-color:var(--bg-raised);
+    border:1px solid color-mix(in srgb, var(--c) 30%, transparent);border-radius:3px;
+    color:var(--paper);font:inherit;cursor:pointer;text-align:center;
+    transition:transform .16s ease, box-shadow .16s ease, background-color .16s ease, border-color .16s ease;
+  }
+  .cls::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--c);border-radius:3px 0 0 3px;}
+  .cls .n{font-family:var(--display);font-size:14px;letter-spacing:.04em;text-transform:uppercase;line-height:1.15;}
+  .cls .o{font-size:11.5px;color:var(--ink);letter-spacing:.02em;}
+  .cls:hover{transform:translate(-1px,-1px);box-shadow:3px 3px 0 color-mix(in srgb, var(--c) 55%, transparent);border-color:color-mix(in srgb, var(--c) 60%, transparent);}
+  .cls .chk{
+    position:absolute;top:6px;right:6px;width:18px;height:18px;border-radius:50%;
+    border:1.5px solid var(--line-strong);display:grid;place-items:center;transition:all .16s ease;
+  }
+  .cls .chk svg{opacity:0;transition:opacity .16s ease;}
+  .cls[aria-pressed="true"]{
+    background:var(--yellow);border-color:var(--yellow);color:#1a1405;
+    box-shadow:4px 4px 0 var(--magenta);transform:translate(-2px,-2px);
+  }
+  .cls[aria-pressed="true"]::before{background:var(--magenta);}
+  .cls[aria-pressed="true"] .o{color:#3b300c;}
+  .cls[aria-pressed="true"] .chk{background:var(--magenta);border-color:var(--magenta);}
+  .cls[aria-pressed="true"] .chk svg{opacity:1;}
+  @keyframes pop{0%{transform:translate(-2px,-2px) scale(.94);}60%{transform:translate(-2px,-2px) scale(1.03);}100%{transform:translate(-2px,-2px) scale(1);}}
+  .cls.just-marked{animation:pop .26s ease;}
+
+  /* ---------- lista por día (móvil) ---------- */
+  .daylist{display:none;}
+  .day-chips{display:flex;gap:6px;overflow-x:auto;padding-bottom:4px;margin-bottom:18px;scrollbar-width:none;}
+  .day-chips::-webkit-scrollbar{display:none;}
+  .day-chip{
+    flex:1 0 auto;min-width:48px;appearance:none;border:1px solid var(--line-strong);background:none;border-radius:3px;
+    font-family:var(--display);font-size:15px;letter-spacing:.04em;text-transform:uppercase;color:var(--ink);
+    padding:11px 10px;cursor:pointer;position:relative;
+  }
+  .day-chip[aria-selected="true"]{background:var(--magenta);border-color:var(--magenta);color:#1a0510;}
+  .day-chip .dot{position:absolute;top:5px;right:5px;width:7px;height:7px;border-radius:50%;background:var(--yellow);}
+  .day-chip[aria-selected="true"] .dot{background:#1a0510;}
+  .day-items{display:flex;flex-direction:column;gap:10px;}
+  .day-items .cls{flex-direction:row;justify-content:flex-start;gap:16px;min-height:64px;padding:12px 44px 12px 18px;text-align:left;}
+  .day-items .cls .tm{font-family:var(--display);font-size:16px;letter-spacing:.03em;min-width:92px;color:inherit;}
+  .day-items .cls .txt{display:flex;flex-direction:column;gap:2px;}
+  .day-items .cls .n{font-size:16px;}
+  .day-items .cls .chk{top:50%;right:14px;transform:translateY(-50%);width:22px;height:22px;}
+  .day-items .none{color:var(--ink-dim);font-size:14px;padding:18px 0;}
+
+  .note{margin-top:26px;font-size:12.5px;color:var(--ink-dim);line-height:1.6;}
+
+  /* barra fija en móvil para descargar */
+  .mobile-bar{display:none;}
+
+  @media (max-width:760px){
+    .schedule{padding:44px 18px 120px;}
+    .grid-wrap{display:none;}
+    .daylist{display:block;}
+    .actions .stamp-btn{display:none;}
+    .toolbar{gap:14px;}
+    .tab{font-size:16px;padding:10px 12px 12px;}
+    .mobile-bar{
+      display:flex;align-items:center;justify-content:space-between;gap:12px;
+      position:fixed;left:0;right:0;bottom:0;z-index:30;
+      padding:12px 16px calc(12px + env(safe-area-inset-bottom));
+      background:rgba(29,23,18,.96);border-top:1px solid var(--line-strong);
+      backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
+    }
+    .mobile-bar .stamp-btn{padding:13px 18px;font-size:14px;}
+    .hero--short{min-height:46vh;min-height:46svh;}
+    .hero--short .hero-content{padding-top:120px;padding-bottom:34px;}
+  }
+  @media (max-height:520px) and (orientation:landscape){
+    .hero--short .hero-content{padding-top:96px;}
+  }
+
+  footer.footer--slim{padding:90px 28px 32px;}
+  footer.footer--slim .copyright{margin-top:70px;padding-top:26px;border-top:1px solid var(--line);max-width:1080px;margin-left:auto;margin-right:auto;}
+  @media (max-width:760px){footer.footer--slim{padding-bottom:110px;}}
+</style>
+</head>
+<body>
+
+<section class="hero hero--short" id="heroMedia">
+  <nav>
+    <div class="brand">
+      <a class="mk-logo" data-mk href="./" aria-label="69 Monkeys, ir al inicio">
+        <div class="mk-glow"></div>
+        <div class="mk-badge-wrap">
+          <div class="mk-badge">
+            <img class="mk-badge-img" src="img/logo.jpg" alt="">
+            <img class="mk-pupil mk-pupil-left" src="img/pupila-izq.png" alt="">
+            <img class="mk-pupil mk-pupil-right" src="img/pupila-der.png" alt="">
+            <img class="mk-tongue" src="img/lengua.png" alt="">
+          </div>
+        </div>
+      </a>
+      <div class="brand-text mono">
+        <div class="brand-name">69 MONKEYS</div>
+        <span class="brand-tag">Gimnasio de artes marciales</span>
+      </div>
+    </div>
+
+    <button class="nav-toggle" id="navToggle" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="navPanel">
+      <svg class="icon-menu" viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      <svg class="icon-close" viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg>
+    </button>
+
+    <div class="nav-panel" id="navPanel">
+    <div class="nav-menu">
+      <a class="text-link" href="./">Inicio</a>
+      <a class="text-link" href="horarios.html" aria-current="page">Horarios</a>
+      <a class="text-link" href="https://www.69monos.com/precios">Precios</a>
+      <a class="text-link" href="https://www.69monos.com/que-ofrecemos">Actividades</a>
+      <a class="text-link" href="https://www.69monos.com/nuestra-historia">Historia</a>
+      <a class="text-link" href="https://www.69monos.com/contacto">Contacto</a>
+    </div>
+
+    <div class="nav-links">
+      <a class="icon-link" href="mailto:info@69monos.com" aria-label="Escríbenos por email">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12c0-3.3 0-4.95 1.03-5.97C5.05 5 6.7 5 10 5h4c3.3 0 4.95 0 5.97 1.03C21 7.05 21 8.7 21 12s0 4.95-1.03 5.97C18.95 19 17.3 19 14 19h-4c-3.3 0-4.95 0-5.97-1.03C3 16.95 3 15.3 3 12Z"/><path d="m6.5 8.5 3.58 2.687c1.155.866 1.732 1.3 2.42 1.3s1.265-.434 2.42-1.3L18.5 8.5"/></svg>
+      </a>
+      <a class="icon-link" href="https://www.instagram.com/69monos_kny/?hl=es" target="_blank" rel="noopener" aria-label="Síguenos en Instagram">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.2" cy="6.8" r="1.1" fill="currentColor" stroke="none"/></svg>
+      </a>
+      <a class="nav-link nav-phone mono" href="tel:+34661571448">661 57 14 48</a>
+    </div>
+    </div>
+  </nav>
+  <div class="nav-scrim" id="navScrim"></div>
+
+  <div class="hero-media">
+    <img src="img/gimnasio.jpg" alt="" fetchpriority="high">
+  </div>
+  <div class="hero-scrim"></div>
+
+  <div class="hero-content">
+    <p class="eyebrow mono">· Horarios ·</p>
+    <h1>Monta tu <em>rutina</em>.</h1>
+    <p class="subtitle">Lunes a viernes de mañana y de tarde, y sábados por la mañana. Marca las clases a las que vas a venir y llévate tu horario en PDF.</p>
+  </div>
+</section>
+
+<section class="schedule" id="horario">
+  <div class="section-head">
+    <p class="eyebrow mono">· Elige tus clases ·</p>
+    <h2>Toca una clase para <em>marcarla</em>.</h2>
+    <p class="lead">Las clases que marques se quedan en amarillo y se guardan en este dispositivo. Cuando lo tengas, descárgate tu horario en PDF.</p>
+  </div>
+
+  <div class="tabs" role="tablist" aria-label="Tipo de horario">
+    <button class="tab" role="tab" id="tab-adultos" aria-controls="panel" aria-selected="true" data-tab="adultos">Adultos<span class="tab-count" hidden></span></button>
+    <button class="tab" role="tab" id="tab-infantil" aria-controls="panel" aria-selected="false" data-tab="infantil">Infantil y juvenil<span class="tab-count" hidden></span></button>
+  </div>
+
+  <div id="panel" role="tabpanel" aria-labelledby="tab-adultos">
+    <div class="toolbar">
+      <ul class="legend" id="legend"></ul>
+      <div class="actions">
+        <span class="counter" id="counter" aria-live="polite"></span>
+        <button class="text-link" type="button" id="clearBtn">Borrar selección</button>
+        <button class="stamp-btn" type="button" id="pdfBtn">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11m0 0-4.5-4.5M12 15l4.5-4.5M5 19h14"/></svg>
+          Descargar PDF
+        </button>
+      </div>
+    </div>
+
+    <div class="grid-wrap"><table class="sched" id="table"></table></div>
+
+    <div class="daylist">
+      <div class="day-chips" id="dayChips" role="tablist" aria-label="Día de la semana"></div>
+      <div class="day-items" id="dayItems"></div>
+    </div>
+
+    <p class="note" id="note"></p>
+  </div>
+</section>
+
+<footer class="footer--slim">
+  <p class="eyebrow mono">· Únete al equipo ·</p>
+  <h2>¿Preparad@ para tu primer <em>asalto</em>?</h2>
+  <p class="footer-sub">Prueba gratis durante 2 días, sin compromiso. Clases desde los 4 años hasta nivel profesional, de lunes a sábado.</p>
+  <a class="stamp-btn" href="mailto:info@69monos.com">Prueba gratis 2 días</a>
+  <p class="copyright mono">© 2026 69 Monos. Todos los derechos reservados.</p>
+</footer>
+
+<div class="mobile-bar">
+  <span class="counter" id="counterMobile"></span>
+  <button class="stamp-btn" type="button" id="pdfBtnMobile">
+    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11m0 0-4.5-4.5M12 15l4.5-4.5M5 19h14"/></svg>
+    Descargar PDF
+  </button>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" defer></script>
+<script src="js/comun.js"></script>
+<script>
+(function(){
+  /* ================= DATOS DEL HORARIO =================
+     Para cambiar el horario solo hay que editar este bloque.
+     Cada fila: h = franja horaria; cells = clase por día (L M X J V S).
+     Una celda puede llevar t = hora propia si no coincide con la de la fila
+     y n = nombre propio si no es el nombre estándar de la disciplina. */
+  const VERSION = 'sep-2024';
+
+  const DISC = {
+    lucha:  {n:'Lucha olímpica',     c:'#9bd14b', rgb:[155,209,75]},
+    mma:    {n:'MMA',                c:'#d9cfbf', rgb:[190,180,165]},
+    grap:   {n:'Grappling',          c:'#39c3d6', rgb:[57,195,214]},
+    thai:   {n:'Muay Thai',          c:'#e8237f', rgb:[232,35,127]},
+    boxeo:  {n:'Boxeo',              c:'#f2883a', rgb:[242,136,58]},
+    bxthai: {n:'Boxeo y Muay Thai',  c:'#f2883a', rgb:[242,136,58]}
+  };
+
+  const DAYS = {
+    L:{n:'Lunes',s:'Lun'}, M:{n:'Martes',s:'Mar'}, X:{n:'Miércoles',s:'Mié'},
+    J:{n:'Jueves',s:'Jue'}, V:{n:'Viernes',s:'Vie'}, S:{n:'Sábado',s:'Sáb'}
+  };
+
+  function each(days, c, extra){
+    const o = {};
+    days.split('').forEach((d)=>{ o[d] = {c}; });
+    return Object.assign(o, extra || {});
+  }
+  const LJ = 'LMXJ', LV = 'LMXJV';
+
+  const SCHEDULES = {
+    adultos: {
+      title:'Adultos',
+      days:['L','M','X','J','V','S'],
+      groups:[
+        {label:'Mañanas', rows:[
+          {h:'10:00–11:30', cells:each(LV,'lucha')},
+          {h:'10:00–11:30', cells:each(LV,'thai')},
+          {h:'10:00–11:30', cells:each(LV,'boxeo', {S:{c:'boxeo', t:'11:00–12:00'}})},
+          {h:'11:30–13:00', cells:{L:{c:'mma'},M:{c:'grap'},X:{c:'mma'},J:{c:'grap'},V:{c:'mma'},S:{c:'lucha', t:'12:00–13:15'}}}
+        ]},
+        {label:'Tardes', rows:[
+          {h:'16:00–17:00', cells:each(LJ,'boxeo', {V:{c:'bxthai', n:'Boxeo / Muay Thai', t:'16:00–18:00'}})},
+          {h:'16:00–17:00', cells:each(LJ,'thai')},
+          {h:'16:00–17:30', cells:each(LJ,'lucha', {V:{c:'lucha', t:'15:45–17:00'}})},
+          {h:'17:00–18:30', cells:each(LJ,'boxeo')},
+          {h:'18:30–20:00', cells:each(LJ,'thai', {V:{c:'mma'}})},
+          {h:'20:00–21:00', cells:each(LJ,'bxthai')},
+          {h:'20:00–21:30', cells:{L:{c:'mma'},M:{c:'grap'},X:{c:'mma'},J:{c:'grap'}}}
+        ]}
+      ]
+    },
+    infantil: {
+      title:'Infantil y juvenil',
+      days:['L','M','X','J','V'],
+      groups:[
+        {label:null, rows:[
+          {g:'Infantil', e:'De 4 a 7 años',   h:'17:30–18:15', cells:each(LJ,'mma')},
+          {g:'Junior',   e:'De 8 a 11 años',  h:'18:15–19:00', cells:each(LJ,'mma')},
+          {g:'Cadete',   e:'De 12 a 16 años', h:'17:00–18:30', cells:each(LJ,'boxeo', {V:{c:'bxthai', n:'Boxeo / Muay Thai', t:'17:00–18:00'}})},
+          {g:'Cadete',   e:'De 12 a 16 años', h:'18:30–20:00', cells:each(LJ,'thai', {V:{c:'grap', t:'18:00–19:00'}})},
+          {g:'Cadete',   e:'De 12 a 16 años', h:'19:00–20:00', cells:each(LJ,'mma')}
+        ]}
+      ]
+    }
+  };
+
+  const NOTES = {
+    adultos:'Horario vigente para adultos. Sábados: boxeo de 11:00 a 12:00 y lucha olímpica de 12:00 a 13:15.',
+    infantil:'Grupos por edad: Infantil (4 a 7 años), Junior (8 a 11) y Cadete (12 a 16). Si tienes dudas sobre el grupo, escríbenos a info@69monos.com.'
+  };
+
+  /* ================= ESTADO ================= */
+  const KEY = 'mk-rutina-' + VERSION;
+  let marked = new Set();
+  try { marked = new Set(JSON.parse(localStorage.getItem(KEY) || '[]')); } catch(e){}
+  function save(){ try { localStorage.setItem(KEY, JSON.stringify([...marked])); } catch(e){} }
+
+  let tab = 'adultos';
+  try { const t = localStorage.getItem('mk-rutina-tab'); if (SCHEDULES[t]) tab = t; } catch(e){}
+  const todayIdx = new Date().getDay(); // 0 domingo
+  const todayKey = ['L','L','M','X','J','V','S'][todayIdx];
+  let day = todayKey;
+
+  /* lista plana de clases para un horario */
+  function items(sk){
+    const s = SCHEDULES[sk], out = [];
+    s.groups.forEach((g, gi)=> g.rows.forEach((r, ri)=>{
+      s.days.forEach((d)=>{
+        const cell = r.cells[d]; if (!cell) return;
+        out.push({
+          id: sk+'-'+gi+'-'+ri+'-'+d, sk, d, row:r, cell,
+          name: cell.n || DISC[cell.c].n,
+          time: cell.t || r.h,
+          disc: DISC[cell.c]
+        });
+      });
+    }));
+    return out;
+  }
+  const ALL = {adultos: items('adultos'), infantil: items('infantil')};
+  const byId = {};
+  Object.values(ALL).flat().forEach((it)=>{ byId[it.id] = it; });
+  // descartar marcas antiguas que ya no existen
+  [...marked].forEach((id)=>{ if (!byId[id]) marked.delete(id); });
+
+  const startMin = (t)=>{ const m = t.match(/(\d{1,2}):(\d{2})/); return m ? (+m[1])*60 + (+m[2]) : 0; };
+
+  /* ================= RENDER ================= */
+  const $ = (id)=>document.getElementById(id);
+  const CHECK = '<svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="#fff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>';
+  const esc = (s)=>String(s).replace(/[&<>"]/g,(ch)=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[ch]));
+
+  function clsButton(it, mobile){
+    const on = marked.has(it.id);
+    const label = DAYS[it.d].n+', '+it.time+', '+it.name+(it.row.g ? ' ('+it.row.g+')' : '');
+    const showOwnTime = !!it.cell.t;
+    const inner = mobile
+      ? '<span class="tm">'+esc(it.time)+'</span><span class="txt"><span class="n">'+esc(it.name)+'</span>'+(it.row.g ? '<span class="o">'+esc(it.row.g+' · '+it.row.e)+'</span>' : '')+'</span>'
+      : '<span class="n">'+esc(it.name)+'</span>'+(showOwnTime ? '<span class="o">'+esc(it.time)+'</span>' : '');
+    return '<button type="button" class="cls" style="--c:'+it.disc.c+'" data-id="'+it.id+'" aria-pressed="'+on+'" aria-label="'+esc(label)+'">'+inner+'<span class="chk" aria-hidden="true">'+CHECK+'</span></button>';
+  }
+
+  function renderTable(){
+    const s = SCHEDULES[tab], t = $('table');
+    t.className = 'sched' + (tab === 'infantil' ? ' sched--kids' : '');
+    let html = '<thead><tr><th class="col-time" scope="col">'+(tab === 'infantil' ? 'Grupo' : 'Hora')+'</th>';
+    s.days.forEach((d)=>{ html += '<th scope="col">'+DAYS[d].n+'</th>'; });
+    html += '</tr></thead><tbody>';
+    s.groups.forEach((g, gi)=>{
+      if (g.label) html += '<tr class="group"><td colspan="'+(s.days.length+1)+'"><span>'+g.label+'</span></td></tr>';
+      g.rows.forEach((r, ri)=>{
+        html += '<tr><td class="row-time">';
+        if (r.g) html += '<span class="g">'+esc(r.g)+'</span><span class="e">'+esc(r.e)+'</span>';
+        html += '<span class="t">'+esc(r.h)+'</span></td>';
+        s.days.forEach((d)=>{
+          const id = tab+'-'+gi+'-'+ri+'-'+d;
+          html += '<td>'+(byId[id] ? clsButton(byId[id], false) : '<span class="empty" aria-hidden="true"></span>')+'</td>';
+        });
+        html += '</tr>';
+      });
+    });
+    t.innerHTML = html + '</tbody>';
+  }
+
+  function renderDayList(){
+    const s = SCHEDULES[tab];
+    if (!s.days.includes(day)) day = s.days[0];
+    $('dayChips').innerHTML = s.days.map((d)=>{
+      const has = ALL[tab].some((it)=> it.d === d && marked.has(it.id));
+      return '<button type="button" class="day-chip" role="tab" data-day="'+d+'" aria-selected="'+(d === day)+'" aria-label="'+DAYS[d].n+'">'+DAYS[d].s+(has ? '<span class="dot" aria-hidden="true"></span>' : '')+'</button>';
+    }).join('');
+    const list = ALL[tab].filter((it)=> it.d === day).sort((a,b)=> startMin(a.time) - startMin(b.time));
+    $('dayItems').innerHTML = list.length ? list.map((it)=> clsButton(it, true)).join('') : '<p class="none">No hay clases este día.</p>';
+  }
+
+  function renderLegend(){
+    const used = [...new Set(ALL[tab].map((it)=> it.cell.c))];
+    const order = ['lucha','mma','grap','thai','boxeo','bxthai'].filter((k)=> used.includes(k) && k !== 'bxthai');
+    $('legend').innerHTML = order.map((k)=> '<li><span class="sw" style="background:'+DISC[k].c+'"></span>'+DISC[k].n+'</li>').join('')
+      + '<li><span class="sw sw-mine"></span>Mi rutina</li>';
+  }
+
+  function renderCounts(){
+    const total = marked.size;
+    const txt = total ? '<strong>'+total+'</strong>'+(total === 1 ? 'clase marcada' : 'clases marcadas') : 'Ninguna clase marcada';
+    $('counter').innerHTML = txt;
+    $('counterMobile').innerHTML = txt;
+    $('pdfBtn').disabled = !total;
+    $('pdfBtnMobile').disabled = !total;
+    $('clearBtn').disabled = !total;
+    document.querySelectorAll('.tab').forEach((b)=>{
+      const n = ALL[b.dataset.tab].filter((it)=> marked.has(it.id)).length;
+      const badge = b.querySelector('.tab-count');
+      badge.hidden = !n; badge.textContent = n;
+    });
+  }
+
+  function renderAll(){
+    document.querySelectorAll('.tab').forEach((b)=> b.setAttribute('aria-selected', String(b.dataset.tab === tab)));
+    $('panel').setAttribute('aria-labelledby', 'tab-'+tab);
+    $('note').textContent = NOTES[tab];
+    renderLegend(); renderTable(); renderDayList(); renderCounts();
+  }
+
+  /* ================= EVENTOS ================= */
+  document.addEventListener('click', (e)=>{
+    const b = e.target.closest('.cls');
+    if (b){
+      const id = b.dataset.id;
+      const on = !marked.has(id);
+      on ? marked.add(id) : marked.delete(id);
+      save();
+      document.querySelectorAll('.cls[data-id="'+id+'"]').forEach((el)=>{
+        el.setAttribute('aria-pressed', String(on));
+        el.classList.remove('just-marked');
+        if (on){ void el.offsetWidth; el.classList.add('just-marked'); }
+      });
+      renderCounts();
+      renderDayChipsOnly(); return;
+    }
+    const tb = e.target.closest('.tab');
+    if (tb){ tab = tb.dataset.tab; try { localStorage.setItem('mk-rutina-tab', tab); } catch(err){} renderAll(); return; }
+    const dc = e.target.closest('.day-chip');
+    if (dc){ day = dc.dataset.day; renderDayList(); return; }
+  });
+
+  function renderDayChipsOnly(){
+    document.querySelectorAll('.day-chip').forEach((c)=>{
+      const has = ALL[tab].some((it)=> it.d === c.dataset.day && marked.has(it.id));
+      const dot = c.querySelector('.dot');
+      if (has && !dot) c.insertAdjacentHTML('beforeend','<span class="dot" aria-hidden="true"></span>');
+      if (!has && dot) dot.remove();
+    });
+  }
+
+  document.querySelector('.tabs').addEventListener('keydown', (e)=>{
+    if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
+    const tabs = [...document.querySelectorAll('.tab')];
+    const i = tabs.findIndex((t)=> t.dataset.tab === tab);
+    const n = tabs[(i + (e.key === 'ArrowRight' ? 1 : tabs.length - 1)) % tabs.length];
+    tab = n.dataset.tab; renderAll(); n.focus();
+  });
+
+  $('clearBtn').addEventListener('click', ()=>{
+    if (!marked.size) return;
+    if (!confirm('¿Quieres borrar todas las clases marcadas?')) return;
+    marked.clear(); save(); renderAll();
+  });
+
+  /* ================= PDF ================= */
+  const pdfTxt = (s)=> String(s).replace(/–/g,'-');
+
+  function loadLogo(){
+    return fetch('img/logo.jpg').then((r)=> r.ok ? r.blob() : Promise.reject())
+      .then((b)=> new Promise((res, rej)=>{ const fr = new FileReader(); fr.onload = ()=> res(fr.result); fr.onerror = rej; fr.readAsDataURL(b); }))
+      .catch(()=> null);
+  }
+
+  async function downloadPdf(){
+    if (!marked.size) return;
+    if (!window.jspdf){ alert('No se ha podido cargar el generador de PDF. Revisa tu conexión e inténtalo de nuevo.'); return; }
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF({orientation:'landscape', unit:'mm', format:'a4'});
+    const logo = await loadLogo();
+    const W = 297, H = 210, M = 12;
+    const today = new Date().toLocaleDateString('es-ES');
+    let first = true;
+
+    ['adultos','infantil'].forEach((sk)=>{
+      const mine = ALL[sk].filter((it)=> marked.has(it.id));
+      if (!mine.length) return;
+      if (!first) doc.addPage(); first = false;
+      const s = SCHEDULES[sk];
+
+      // cabecera
+      doc.setFillColor(21,16,12); doc.rect(0,0,W,30,'F');
+      doc.setFillColor(232,35,127); doc.rect(0,30,W,1.4,'F');
+      let tx = M;
+      if (logo){ try { doc.addImage(logo,'JPEG',M,5,20,20); tx = M + 25; } catch(e){} }
+      doc.setFont('helvetica','bold'); doc.setFontSize(20); doc.setTextColor(245,236,221);
+      doc.text('69 MONKEYS', tx, 15);
+      doc.setFont('helvetica','normal'); doc.setFontSize(10.5); doc.setTextColor(199,154,61);
+      doc.text(pdfTxt('MI RUTINA  ·  HORARIO '+s.title.toUpperCase()), tx, 22);
+      doc.setFontSize(9); doc.setTextColor(205,191,169);
+      doc.text('Generado el '+today, W-M, 15, {align:'right'});
+      doc.text(mine.length+(mine.length === 1 ? ' clase marcada' : ' clases marcadas'), W-M, 21, {align:'right'});
+
+      // tabla
+      const firstW = sk === 'infantil' ? 44 : 30;
+      const gap = 1.6;
+      const colW = (W - 2*M - firstW - gap*s.days.length) / s.days.length;
+      const nRows = s.groups.reduce((a,g)=> a + g.rows.length, 0);
+      const nGroups = s.groups.filter((g)=> g.label).length;
+      const headH = 9;
+      const avail = H - 40 - 46 - headH - nGroups*6;
+      const rowH = Math.min(15, avail / nRows - gap);
+      let y = 38;
+      const colX = (i)=> M + firstW + gap + i*(colW + gap);
+
+      doc.setFont('helvetica','bold'); doc.setFontSize(9.5);
+      doc.setFillColor(29,23,18); doc.rect(M, y, firstW, headH, 'F');
+      doc.setTextColor(245,236,221); doc.text(sk === 'infantil' ? 'GRUPO' : 'HORA', M+3, y+6);
+      s.days.forEach((d,i)=>{
+        doc.setFillColor(29,23,18); doc.rect(colX(i), y, colW, headH, 'F');
+        doc.setFillColor(232,35,127); doc.rect(colX(i), y, colW, 1, 'F');
+        doc.text(pdfTxt(DAYS[d].n.toUpperCase()), colX(i)+colW/2, y+6.2, {align:'center'});
+      });
+      y += headH + gap;
+
+      s.groups.forEach((g, gi)=>{
+        if (g.label){
+          doc.setFont('helvetica','bold'); doc.setFontSize(7.5); doc.setTextColor(199,154,61);
+          doc.text(g.label.toUpperCase(), M+1, y+4); y += 6;
+        }
+        g.rows.forEach((r, ri)=>{
+          // primera columna
+          doc.setFillColor(245,240,232); doc.rect(M, y, firstW, rowH, 'F');
+          doc.setTextColor(40,32,26);
+          if (r.g){
+            doc.setFont('helvetica','bold'); doc.setFontSize(8.5); doc.text(r.g.toUpperCase(), M+3, y+rowH/2-2.2);
+            doc.setFont('helvetica','normal'); doc.setFontSize(7); doc.text(pdfTxt(r.e+'  ·  '+r.h), M+3, y+rowH/2+2.6);
+          } else {
+            doc.setFont('helvetica','bold'); doc.setFontSize(9); doc.text(pdfTxt(r.h), M+3, y+rowH/2+1.2);
+          }
+          s.days.forEach((d,i)=>{
+            const it = byId[sk+'-'+gi+'-'+ri+'-'+d];
+            const x = colX(i);
+            if (!it){
+              doc.setDrawColor(225,218,206); doc.setLineDashPattern([0.8,0.8],0); doc.rect(x, y, colW, rowH, 'S'); doc.setLineDashPattern([],0);
+              return;
+            }
+            const on = marked.has(it.id);
+            if (on){
+              doc.setFillColor(242,213,37); doc.rect(x, y, colW, rowH, 'F');
+              doc.setFillColor(232,35,127); doc.rect(x, y, 1.6, rowH, 'F');
+              // check
+              doc.setFillColor(232,35,127); doc.circle(x+colW-2.6, y+2.6, 1.7, 'F');
+              doc.setDrawColor(255,255,255); doc.setLineWidth(0.45);
+              doc.line(x+colW-3.4, y+2.7, x+colW-2.85, y+3.3); doc.line(x+colW-2.85, y+3.3, x+colW-1.8, y+2.0);
+              doc.setLineWidth(0.2);
+              doc.setTextColor(26,20,5); doc.setFont('helvetica','bold');
+            } else {
+              doc.setFillColor(246,243,238); doc.rect(x, y, colW, rowH, 'F');
+              doc.setFillColor(...it.disc.rgb); doc.rect(x, y, 1, rowH, 'F');
+              doc.setTextColor(160,150,138); doc.setFont('helvetica','normal');
+            }
+            const own = !!it.cell.t;
+            doc.setFontSize(colW < 38 ? 7.6 : 8.2);
+            const lines = doc.splitTextToSize(pdfTxt(it.name.toUpperCase()), colW - 10);
+            const lh = 3.3;
+            const blockH = lines.length*lh + (own ? lh : 0);
+            let ty = y + rowH/2 - blockH/2 + lh*0.8;
+            lines.forEach((ln)=>{ doc.text(ln, x+colW/2+0.5, ty, {align:'center'}); ty += lh; });
+            if (own){ doc.setFont('helvetica','normal'); doc.setFontSize(6.8); doc.text(pdfTxt(it.time), x+colW/2+0.5, ty, {align:'center'}); }
+          });
+          y += rowH + gap;
+        });
+      });
+
+      // resumen
+      y += 4;
+      doc.setFont('helvetica','bold'); doc.setFontSize(10); doc.setTextColor(232,35,127);
+      doc.text('TUS CLASES', M, y);
+      y += 5;
+      const order = s.days;
+      const list = mine.slice().sort((a,b)=> order.indexOf(a.d) - order.indexOf(b.d) || startMin(a.time) - startMin(b.time));
+      const cols = 3, perCol = Math.max(1, Math.ceil(list.length / cols));
+      const cw = (W - 2*M) / cols;
+      const maxLines = Math.floor((H - 14 - y) / 4.4);
+      doc.setFontSize(8.5);
+      list.forEach((it, i)=>{
+        const c = Math.floor(i / perCol), l = i % perCol;
+        if (l >= maxLines) return;
+        const x = M + c*cw, yy = y + l*4.4;
+        doc.setFont('helvetica','bold'); doc.setTextColor(40,32,26);
+        doc.text(pdfTxt(DAYS[it.d].n+'  '+it.time), x, yy);
+        doc.setFont('helvetica','normal'); doc.setTextColor(90,80,70);
+        doc.text(pdfTxt(it.name+(it.row.g ? ' ('+it.row.g+')' : '')), x+38, yy);
+      });
+
+      // pie
+      doc.setDrawColor(220,212,200); doc.setLineWidth(0.3); doc.line(M, H-10, W-M, H-10);
+      doc.setFont('helvetica','normal'); doc.setFontSize(8); doc.setTextColor(140,130,118);
+      doc.text(pdfTxt('69 Monkeys · Gimnasio de artes marciales · info@69monos.com · 661 57 14 48'), M, H-5.5);
+      doc.text('Horario sujeto a cambios.', W-M, H-5.5, {align:'right'});
+    });
+
+    doc.save('mi-rutina-69-monkeys.pdf');
+  }
+  $('pdfBtn').addEventListener('click', downloadPdf);
+  $('pdfBtnMobile').addEventListener('click', downloadPdf);
+
+  renderAll();
+})();
+</script>
+</body>
+</html>
