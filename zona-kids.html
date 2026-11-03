@@ -28,6 +28,8 @@
   .hero--kids h1{max-width:none;}
   .hero--kids h1 .l2{white-space:nowrap;}
   .hero--kids .subtitle{max-width:46ch;}
+  @media (min-width:900px){.hero--kids .subtitle{max-width:none;}}
+  @media (max-width:899px){.br-desk{display:none;}}
 
   /* ---------- tira de oferta ---------- */
   .wrap{max-width:1180px;margin:0 auto;padding:0 28px;position:relative;z-index:1;}
@@ -45,7 +47,7 @@
   .block-head{max-width:60ch;margin-bottom:34px;}
   .block-head h2{font-size:clamp(28px,3.6vw,42px);line-height:1.12;}
   .block-head p{margin:16px 0 0;color:var(--ink);font-size:15.5px;line-height:1.65;}
-  @media (min-width:761px){.block-head:has(.p-wide){max-width:none;}}
+  @media (min-width:761px){.block-head:has(.p-wide){max-width:none;} .p-wide{text-wrap:balance;}}
 
   /* ---------- buscador por edad ---------- */
   .ages{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px;}
@@ -229,7 +231,7 @@
 
   <div class="hero-content">
     <h1>Kids MMA.<br> <span class="l2">Aprende a decir <em>basta</em>.</span></h1>
-    <p class="subtitle">Somos la escuela pionera del estado en MMA infantil: desde 2003, con un programa exclusivo adaptado a cada edad, de los 4 a los 16 años.</p>
+    <p class="subtitle">Somos la escuela pionera del estado en MMA infantil: desde 2003,<br class="br-desk"> con un programa exclusivo adaptado a cada edad, de los 4 a los 16 años.</p>
   </div>
 </section>
 
@@ -245,7 +247,7 @@
 <section class="block wrap" id="programas">
   <div class="block-head">
     <h2>¿Cuántos años <em>tiene</em>?</h2>
-    <p>Nuestro programa está clasificado por edades y etapas para la enseñanza marcial y la ayuda psicomotriz, acompañando a cada alumno en su desarrollo físico.</p>
+    <p class="p-wide">Nuestro programa está clasificado por edades y etapas para la enseñanza marcial y la ayuda psicomotriz, acompañando a cada alumno en su desarrollo físico.</p>
   </div>
 
   <p class="age-label" id="ageLabel">Elige la edad</p>
