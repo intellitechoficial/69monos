@@ -16,6 +16,8 @@
   .block-head--wide h2{font-size:clamp(26px,3vw,38px);text-wrap:wrap;}
   .block-head--wide p{max-width:62ch;}
   @media (min-width:761px){.one-line{white-space:nowrap;}}
+  @media (min-width:1100px){.block-head--wide p.one-line{max-width:none;}}
+  @media (max-width:1099px){p.one-line{white-space:normal;}}
   html{scroll-behavior:smooth;}
   #historia,#contacto{scroll-margin-top:20px;}
   .block-head{max-width:62ch;margin-bottom:22px;}
@@ -323,7 +325,7 @@
   <div class="block-head block-head--wide">
     <p class="kicker">Contacto</p>
     <h2 class="one-line">Escríbenos, llámanos o <em>ven a vernos</em>.</h2>
-    <p>Puedes contactarnos por correo, teléfono, WhatsApp o en persona. Te atendemos en el gimnasio y resolvemos cualquier duda que tengas.</p>
+    <p class="one-line">Puedes contactarnos por correo, teléfono, WhatsApp o en persona. Te atendemos en el gimnasio y resolvemos cualquier duda que tengas.</p>
   </div>
 
   <div class="contact">
