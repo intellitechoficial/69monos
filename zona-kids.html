@@ -144,7 +144,8 @@
   .cred .v{font-size:13px;color:var(--ink-dim);line-height:1.5;}
 
   .final{text-align:center;padding:90px 28px 20px;}
-  .final h2{font-size:clamp(28px,4.4vw,46px);max-width:18ch;margin:0 auto 16px;line-height:1.14;}
+  .final h2{font-size:clamp(28px,4.4vw,46px);max-width:none;white-space:nowrap;margin:0 auto 16px;line-height:1.14;}
+  @media (max-width:760px){.final h2{font-size:6.4vw;}}
   .final p{max-width:48ch;margin:0 auto 30px;color:var(--ink-dim);font-size:15px;line-height:1.6;}
   @media (min-width:900px){.final p{max-width:none;white-space:nowrap;}}
   .final .row{display:flex;gap:26px;justify-content:center;align-items:center;flex-wrap:wrap;}
