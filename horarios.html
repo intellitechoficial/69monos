@@ -9,17 +9,17 @@
 <link rel="stylesheet" href="css/estilos.css">
 <style>
   /* ---------- cabecera corta ---------- */
-  .hero--short{min-height:0;height:clamp(380px,46vh,420px);justify-content:flex-end;}
+  .hero--short{min-height:0;height:clamp(330px,40vh,360px);justify-content:flex-end;}
   .hero--short .mk-logo{width:clamp(90px,9vw,128px);}
   .hero--short .hero-media img{object-position:50% 45%;}
   .hero--short .hero-scrim{background:linear-gradient(90deg, rgba(21,16,12,.85) 0%, rgba(21,16,12,.55) 40%, rgba(21,16,12,.2) 75%), linear-gradient(180deg, rgba(21,16,12,.6) 0%, rgba(21,16,12,.1) 35%, rgba(21,16,12,.3) 70%, rgba(21,16,12,1) 100%);}
-  .hero--short .hero-content{padding-top:0;padding-bottom:28px;}
+  .hero--short .hero-content{width:100%;max-width:1180px;margin:0 auto;padding:0 28px 14px;}
   .hero--short h1{max-width:none;font-size:clamp(32px,4.4vw,52px);}
   .hero--short .eyebrow{margin-bottom:10px;}
   .hero--short .subtitle{margin:10px 0 0;font-size:15px;}
 
   /* ---------- bloque horario ---------- */
-  .schedule{position:relative;z-index:1;max-width:1180px;margin:0 auto;padding:36px 28px 100px;}
+  .schedule{position:relative;z-index:1;max-width:1180px;margin:0 auto;padding:14px 28px 100px;}
 
   .tabs{display:flex;gap:6px;border-bottom:1px solid var(--line);margin-bottom:22px;flex-wrap:wrap;}
   .tab{
@@ -127,7 +127,7 @@
   .mobile-bar{display:none;}
 
   @media (max-width:760px){
-    .schedule{padding:26px 18px 120px;}
+    .schedule{padding:10px 18px 120px;}
     .grid-wrap{display:none;}
     .daylist{display:block;}
     .actions .stamp-btn{display:none;}
@@ -142,11 +142,13 @@
     }
     .mobile-bar .stamp-btn{padding:13px 18px;font-size:14px;}
     .hero--short{height:auto;min-height:300px;}
-    .hero--short .hero-content{padding-top:110px;padding-bottom:22px;}
+    .hero--short .mk-logo{width:52px;}
+    .hero--short .hero-content{padding:104px 18px 14px;}
     .hero--short .subtitle{font-size:15px;}
   }
   @media (max-height:520px) and (orientation:landscape){
     .hero--short{height:auto;}
+    .hero--short .mk-logo{width:46px;}
     .hero--short .hero-content{padding-top:84px;}
   }
 
@@ -211,7 +213,6 @@
   <div class="hero-scrim"></div>
 
   <div class="hero-content">
-    <p class="eyebrow mono">· Horarios ·</p>
     <h1>Monta tu <em>rutina</em>.</h1>
     <p class="subtitle">Lunes a viernes de mañana y de tarde, y sábados por la mañana. Marca las clases a las que vas a venir y llévate tu horario en PDF.</p>
   </div>
