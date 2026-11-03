@@ -295,3 +295,7 @@ footer.footer--slim .copyright{margin-top:70px;padding-top:26px;border-top:1px s
   text-shadow:1px 1px 0 #0d0803, 2px 2px 0 #0d0803;
 }
 @media (max-width:760px){.eyebrow.eyebrow--big{font-size:15px;letter-spacing:.1em;line-height:1.5;margin-bottom:12px;}}
+
+/* nota discreta IA */
+.ai-note{opacity:.55;white-space:nowrap;}
+@media (max-width:640px){.ai-note{display:block;margin-top:4px;} .ai-dot{display:none;}}
