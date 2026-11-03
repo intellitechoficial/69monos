@@ -9,14 +9,17 @@
 <link rel="stylesheet" href="css/estilos.css">
 <style>
   /* ---------- cabecera corta ---------- */
-  .hero--short{min-height:58vh;min-height:58svh;}
-  .hero--short .hero-media img{object-position:62% 50%;}
-  .hero--short .hero-scrim{background:linear-gradient(90deg, rgba(21,16,12,.82) 0%, rgba(21,16,12,.45) 45%, rgba(21,16,12,.1) 75%), linear-gradient(180deg, rgba(21,16,12,.55) 0%, rgba(21,16,12,0) 30%, rgba(21,16,12,.25) 65%, rgba(21,16,12,1) 100%);}
-  .hero--short .hero-content{padding-top:150px;padding-bottom:56px;}
-  .hero--short h1{max-width:none;}
+  .hero--short{min-height:0;height:clamp(380px,46vh,420px);justify-content:flex-end;}
+  .hero--short .mk-logo{width:clamp(90px,9vw,128px);}
+  .hero--short .hero-media img{object-position:50% 45%;}
+  .hero--short .hero-scrim{background:linear-gradient(90deg, rgba(21,16,12,.85) 0%, rgba(21,16,12,.55) 40%, rgba(21,16,12,.2) 75%), linear-gradient(180deg, rgba(21,16,12,.6) 0%, rgba(21,16,12,.1) 35%, rgba(21,16,12,.3) 70%, rgba(21,16,12,1) 100%);}
+  .hero--short .hero-content{padding-top:0;padding-bottom:28px;}
+  .hero--short h1{max-width:none;font-size:clamp(32px,4.4vw,52px);}
+  .hero--short .eyebrow{margin-bottom:10px;}
+  .hero--short .subtitle{margin:10px 0 0;font-size:15px;}
 
   /* ---------- bloque horario ---------- */
-  .schedule{position:relative;z-index:1;max-width:1180px;margin:0 auto;padding:64px 28px 100px;}
+  .schedule{position:relative;z-index:1;max-width:1180px;margin:0 auto;padding:36px 28px 100px;}
 
   .tabs{display:flex;gap:6px;border-bottom:1px solid var(--line);margin-bottom:22px;flex-wrap:wrap;}
   .tab{
@@ -124,7 +127,7 @@
   .mobile-bar{display:none;}
 
   @media (max-width:760px){
-    .schedule{padding:44px 18px 120px;}
+    .schedule{padding:26px 18px 120px;}
     .grid-wrap{display:none;}
     .daylist{display:block;}
     .actions .stamp-btn{display:none;}
@@ -138,11 +141,13 @@
       backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
     }
     .mobile-bar .stamp-btn{padding:13px 18px;font-size:14px;}
-    .hero--short{min-height:46vh;min-height:46svh;}
-    .hero--short .hero-content{padding-top:120px;padding-bottom:34px;}
+    .hero--short{height:auto;min-height:300px;}
+    .hero--short .hero-content{padding-top:110px;padding-bottom:22px;}
+    .hero--short .subtitle{font-size:15px;}
   }
   @media (max-height:520px) and (orientation:landscape){
-    .hero--short .hero-content{padding-top:96px;}
+    .hero--short{height:auto;}
+    .hero--short .hero-content{padding-top:84px;}
   }
 
   footer.footer--slim{padding:90px 28px 32px;}
@@ -201,7 +206,7 @@
   <div class="nav-scrim" id="navScrim"></div>
 
   <div class="hero-media">
-    <img src="img/horario-reloj.jpg" alt="" fetchpriority="high">
+    <img src="img/horarios-fondo.jpg" alt="" fetchpriority="high">
   </div>
   <div class="hero-scrim"></div>
 
