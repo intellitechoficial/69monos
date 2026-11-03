@@ -260,3 +260,28 @@ footer h2{font-size:clamp(28px,5vw,48px);max-width:16ch;margin:0 auto 18px;line-
 @media (max-width:760px){
   .hero-scrim{background:linear-gradient(180deg, rgba(21,16,12,.72) 0%, rgba(21,16,12,.38) 28%, rgba(21,16,12,.72) 58%, rgba(21,16,12,.96) 100%);}
 }
+
+
+/* ---------- cabecera corta (páginas interiores) ---------- */
+.hero--short{min-height:0;height:clamp(330px,40vh,360px);justify-content:flex-end;}
+.hero--short .mk-logo{width:clamp(90px,9vw,128px);}
+.hero--short .hero-media img{object-position:50% 45%;}
+.hero--short .hero-scrim{background:linear-gradient(90deg, rgba(21,16,12,.85) 0%, rgba(21,16,12,.55) 40%, rgba(21,16,12,.2) 75%), linear-gradient(180deg, rgba(21,16,12,.6) 0%, rgba(21,16,12,.1) 35%, rgba(21,16,12,.3) 70%, rgba(21,16,12,1) 100%);}
+.hero--short .hero-content{width:100%;max-width:1180px;margin:0 auto;padding:0 28px 14px;}
+.hero--short h1{max-width:none;font-size:clamp(32px,4.4vw,52px);}
+.hero--short .eyebrow{margin-bottom:10px;}
+.hero--short .subtitle{margin:10px 0 0;font-size:15px;}
+footer.footer--slim{padding:90px 28px 32px;}
+footer.footer--slim .copyright{margin-top:70px;padding-top:26px;border-top:1px solid var(--line);max-width:1080px;margin-left:auto;margin-right:auto;}
+@media (max-width:760px){
+  .hero--short{height:auto;min-height:300px;}
+  .hero--short .mk-logo{width:52px;}
+  .hero--short .hero-content{padding:104px 18px 14px;}
+  .hero--short .subtitle{font-size:15px;}
+  footer.footer--slim{padding-bottom:60px;}
+}
+@media (max-height:520px) and (orientation:landscape){
+  .hero--short{height:auto;}
+  .hero--short .mk-logo{width:46px;}
+  .hero--short .hero-content{padding-top:84px;}
+}

@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Precios · 69 Monkeys</title>
+<meta name="description" content="Tarifas de 69 Monkeys en Cornellà de Llobregat: cuota fija con todas las clases que quieras en los dos locales.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Permanent+Marker&family=Work+Sans:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="css/estilos.css">
+<style>
+  .hero--short .hero-media img{object-position:50% 30%;}
+
+  .pricing{position:relative;z-index:1;max-width:1180px;margin:0 auto;padding:30px 28px 40px;}
+  .plans{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;align-items:stretch;}
+
+  .plan{
+    position:relative;display:flex;flex-direction:column;
+    background:var(--bg-raised);border:1px solid var(--line);border-top:3px solid var(--brass);border-radius:3px;
+    padding:30px 28px 28px;
+  }
+  .plan-who{font-family:var(--display);font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:var(--brass);margin:0 0 10px;}
+  .plan h2{font-size:clamp(24px,2.4vw,30px);line-height:1.1;margin-bottom:22px;}
+  .price{display:flex;align-items:baseline;gap:8px;margin:0 0 6px;}
+  .price .amt{font-family:var(--display);font-size:clamp(56px,6vw,76px);line-height:1;color:var(--yellow);letter-spacing:.01em;}
+  .price .per{font-family:var(--display);font-size:16px;letter-spacing:.06em;text-transform:uppercase;color:var(--paper);}
+  .price-note{font-size:13px;color:var(--ink-dim);margin:0 0 22px;}
+  .plan ul{list-style:none;margin:0 0 28px;padding:20px 0 0;border-top:1px solid var(--line);display:flex;flex-direction:column;gap:12px;flex:1;}
+  .plan li{display:flex;gap:12px;align-items:flex-start;font-size:14.5px;line-height:1.5;color:var(--ink);}
+  .plan li svg{flex:none;margin-top:3px;color:var(--magenta);}
+  .plan .stamp-btn{align-self:flex-start;}
+
+  .plan--life{border-color:var(--magenta);border-top-color:var(--magenta);box-shadow:6px 6px 0 var(--magenta);}
+  .plan--life .plan-who{color:var(--magenta);}
+  .badge{
+    position:absolute;top:-14px;right:22px;
+    font-family:var(--display);font-size:12px;letter-spacing:.1em;text-transform:uppercase;
+    background:var(--yellow);color:#1a1405;padding:6px 12px;border-radius:2px;box-shadow:3px 3px 0 var(--magenta);
+  }
+  .plan--life .stamp-btn{background:var(--yellow);color:#1a1405;box-shadow:4px 4px 0 var(--magenta);}
+  .plan--life .stamp-btn:hover{box-shadow:6px 6px 0 var(--magenta);}
+
+  .included{
+    max-width:1180px;margin:0 auto;padding:44px 28px 30px;
+    display:grid;grid-template-columns:repeat(4,1fr);gap:28px;
+  }
+  .inc{border-top:1px solid var(--line);padding-top:16px;}
+  .inc .k{display:block;font-family:var(--display);font-size:22px;color:var(--paper);letter-spacing:.02em;margin-bottom:6px;}
+  .inc .v{font-size:13px;color:var(--ink-dim);line-height:1.5;}
+
+  .trial{
+    max-width:1180px;margin:20px auto 0;padding:0 28px;
+  }
+  .trial-box{
+    display:flex;align-items:center;justify-content:space-between;gap:20px 32px;flex-wrap:wrap;
+    border:1px dashed var(--line-strong);border-radius:3px;padding:24px 28px;
+  }
+  .trial-box p{margin:0;color:var(--paper);font-size:16px;line-height:1.5;}
+  .trial-box p strong{font-family:var(--display);font-weight:400;font-size:22px;letter-spacing:.03em;text-transform:uppercase;display:block;margin-bottom:2px;}
+  .trial-box .row{display:flex;gap:24px;align-items:center;flex-wrap:wrap;}
+
+  footer.footer--slim{padding-top:50px;}
+  footer.footer--slim .copyright{margin-top:0;padding-top:0;border-top:0;}
+
+  @media (max-width:980px){
+    .plans{grid-template-columns:1fr 1fr;}
+    .plan--life{grid-column:1 / -1;}
+    .included{grid-template-columns:repeat(2,1fr);}
+  }
+  @media (max-width:640px){
+    .pricing{padding:16px 18px 30px;}
+    .plans{grid-template-columns:1fr;gap:26px;}
+    .plan{padding:26px 22px 24px;}
+    .included{padding:30px 18px 20px;gap:22px;}
+    .trial{padding:0 18px;}
+    .trial-box{padding:22px 20px;}
+  }
+</style>
+</head>
+<body>
+
+<section class="hero hero--short" id="heroMedia">
+  <nav>
+    <div class="brand">
+      <a class="mk-logo" data-mk href="./" aria-label="69 Monkeys, ir al inicio">
+        <div class="mk-glow"></div>
+        <div class="mk-badge-wrap">
+          <div class="mk-badge">
+            <img class="mk-badge-img" src="img/logo.jpg" alt="">
+            <img class="mk-pupil mk-pupil-left" src="img/pupila-izq.png" alt="">
+            <img class="mk-pupil mk-pupil-right" src="img/pupila-der.png" alt="">
+            <img class="mk-tongue" src="img/lengua.png" alt="">
+          </div>
+        </div>
+      </a>
+      <div class="brand-text mono">
+        <div class="brand-name">69 MONKEYS</div>
+        <span class="brand-tag">Gimnasio de artes marciales</span>
+      </div>
+    </div>
+
+    <button class="nav-toggle" id="navToggle" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="navPanel">
+      <svg class="icon-menu" viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      <svg class="icon-close" viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg>
+    </button>
+
+    <div class="nav-panel" id="navPanel">
+    <div class="nav-menu">
+      <a class="text-link" href="./">Inicio</a>
+      <a class="text-link" href="horarios.html">Horarios</a>
+      <a class="text-link" href="precios.html" aria-current="page">Precios</a>
+      <a class="text-link" href="https://www.69monos.com/que-ofrecemos">Actividades</a>
+      <a class="text-link" href="https://www.69monos.com/nuestra-historia">Historia</a>
+      <a class="text-link" href="https://www.69monos.com/contacto">Contacto</a>
+    </div>
+
+    <div class="nav-links">
+      <a class="icon-link" href="mailto:info@69monos.com" aria-label="Escríbenos por email">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12c0-3.3 0-4.95 1.03-5.97C5.05 5 6.7 5 10 5h4c3.3 0 4.95 0 5.97 1.03C21 7.05 21 8.7 21 12s0 4.95-1.03 5.97C18.95 19 17.3 19 14 19h-4c-3.3 0-4.95 0-5.97-1.03C3 16.95 3 15.3 3 12Z"/><path d="m6.5 8.5 3.58 2.687c1.155.866 1.732 1.3 2.42 1.3s1.265-.434 2.42-1.3L18.5 8.5"/></svg>
+      </a>
+      <a class="icon-link" href="https://www.instagram.com/69monos_kny/?hl=es" target="_blank" rel="noopener" aria-label="Síguenos en Instagram">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.2" cy="6.8" r="1.1" fill="currentColor" stroke="none"/></svg>
+      </a>
+      <a class="nav-link nav-phone mono" href="tel:+34661571448">661 57 14 48</a>
+    </div>
+    </div>
+  </nav>
+  <div class="nav-scrim" id="navScrim"></div>
+
+  <div class="hero-media">
+    <img src="img/precios-fondo.jpg" alt="" fetchpriority="high">
+  </div>
+  <div class="hero-scrim"></div>
+
+  <div class="hero-content">
+    <h1>Una cuota. <em>Todas</em> las clases.</h1>
+    <p class="subtitle">Trabajamos con una cuota fija: accedes a los dos locales y haces tantas clases y actividades como quieras, de lunes a sábado.</p>
+  </div>
+</section>
+
+<section class="pricing" aria-label="Tarifas">
+  <div class="plans">
+
+    <article class="plan">
+      <p class="plan-who">Adultos y cadetes</p>
+      <h2>Mayores de 12 años</h2>
+      <p class="price"><span class="amt">65€</span><span class="per">al mes</span></p>
+      <p class="price-note">Cuota mensual.</p>
+      <ul>
+        <li><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Todas las clases que quieras</li>
+        <li><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>En cualquier centro 69 Monos</li>
+        <li><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Las ocho disciplinas, de lunes a sábado</li>
+      </ul>
+      <a class="stamp-btn" href="mailto:info@69monos.com?subject=Cuota%20mayores%20de%2012%20a%C3%B1os">Apúntate</a>
+    </article>
+
+    <article class="plan">
+      <p class="plan-who">Infantil y junior</p>
+      <h2>Menores de 12 años</h2>
+      <p class="price"><span class="amt">50€</span><span class="per">al mes</span></p>
+      <p class="price-note">Cuota mensual.</p>
+      <ul>
+        <li><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Todas las clases que quieras de su horario por edad</li>
+        <li><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>En cualquier centro 69 Monos</li>
+        <li><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Grupos Infantil y Junior</li>
+      </ul>
+      <a class="stamp-btn" href="mailto:info@69monos.com?subject=Cuota%20menores%20de%2012%20a%C3%B1os">Apúntate</a>
+    </article>
+
+    <article class="plan plan--life">
+      <span class="badge">Pago único</span>
+      <p class="plan-who">Para siempre</p>
+      <h2>Pase de por vida</h2>
+      <p class="price"><span class="amt">1200€</span></p>
+      <p class="price-note">Pagas una vez y ya no pagas nunca más.</p>
+      <ul>
+        <li><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Todas las clases que quieras, de por vida</li>
+        <li><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>En cualquier centro 69 Monos</li>
+        <li><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Sin cuotas mensuales</li>
+      </ul>
+      <a class="stamp-btn" href="mailto:info@69monos.com?subject=Pase%20de%20por%20vida">Quiero el pase</a>
+    </article>
+
+  </div>
+</section>
+
+<section class="included" aria-label="Qué incluye la cuota">
+  <div class="inc"><span class="k">2 locales</span><span class="v">Entrena en cualquiera de nuestros centros de Cornellà.</span></div>
+  <div class="inc"><span class="k">8 disciplinas</span><span class="v">BJJ, MMA, Striker MMA, Grappling, Lucha, Boxeo, Muay Thai y K-1.</span></div>
+  <div class="inc"><span class="k">Lunes a sábado</span><span class="v">Clases de mañana y de tarde. <a class="text-link" href="horarios.html">Ver horarios</a></span></div>
+  <div class="inc"><span class="k">Profes CSD</span><span class="v">Profesores certificados por el Consejo Superior de Deportes.</span></div>
+</section>
+
+<section class="trial">
+  <div class="trial-box">
+    <p><strong>Prueba gratis 2 días</strong>Ven a probar sin compromiso antes de apuntarte.</p>
+    <div class="row">
+      <a class="text-link" href="horarios.html">Ver horarios</a>
+      <a class="stamp-btn" href="mailto:info@69monos.com?subject=Prueba%20gratis%202%20d%C3%ADas">Pide tu prueba</a>
+    </div>
+  </div>
+</section>
+
+<footer class="footer--slim">
+  <p class="copyright mono">© 2026 69 Monos. Todos los derechos reservados.</p>
+</footer>
+
+<script src="js/comun.js"></script>
+</body>
+</html>
