@@ -288,3 +288,7 @@ footer.footer--slim .copyright{margin-top:70px;padding-top:26px;border-top:1px s
   .hero--short .mk-logo{width:46px;}
   .hero--short .hero-content{padding-top:84px;}
 }
+
+/* disciplinas de la portada, más grandes */
+.eyebrow.eyebrow--big{font-size:17px;letter-spacing:.14em;margin-bottom:20px;}
+@media (max-width:760px){.eyebrow.eyebrow--big{font-size:15px;letter-spacing:.1em;line-height:1.5;margin-bottom:12px;}}
