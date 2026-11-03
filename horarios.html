@@ -10,14 +10,13 @@
 <style>
   /* ---------- cabecera corta ---------- */
   .hero--short{min-height:58vh;min-height:58svh;}
-  .hero--short .hero-media img{object-position:50% 60%;}
+  .hero--short .hero-media img{object-position:62% 50%;}
+  .hero--short .hero-scrim{background:linear-gradient(90deg, rgba(21,16,12,.82) 0%, rgba(21,16,12,.45) 45%, rgba(21,16,12,.1) 75%), linear-gradient(180deg, rgba(21,16,12,.55) 0%, rgba(21,16,12,0) 30%, rgba(21,16,12,.25) 65%, rgba(21,16,12,1) 100%);}
   .hero--short .hero-content{padding-top:150px;padding-bottom:56px;}
   .hero--short h1{max-width:none;}
 
   /* ---------- bloque horario ---------- */
   .schedule{position:relative;z-index:1;max-width:1180px;margin:0 auto;padding:64px 28px 100px;}
-  .schedule .section-head{margin-bottom:34px;}
-  .schedule .section-head p.lead{margin:16px 0 0;color:var(--ink);font-size:15px;line-height:1.6;max-width:56ch;}
 
   .tabs{display:flex;gap:6px;border-bottom:1px solid var(--line);margin-bottom:22px;flex-wrap:wrap;}
   .tab{
@@ -202,7 +201,7 @@
   <div class="nav-scrim" id="navScrim"></div>
 
   <div class="hero-media">
-    <img src="img/gimnasio.jpg" alt="" fetchpriority="high">
+    <img src="img/horario-reloj.jpg" alt="" fetchpriority="high">
   </div>
   <div class="hero-scrim"></div>
 
@@ -214,12 +213,6 @@
 </section>
 
 <section class="schedule" id="horario">
-  <div class="section-head">
-    <p class="eyebrow mono">· Elige tus clases ·</p>
-    <h2>Toca una clase para <em>marcarla</em>.</h2>
-    <p class="lead">Las clases que marques se quedan en amarillo y se guardan en este dispositivo. Cuando lo tengas, descárgate tu horario en PDF.</p>
-  </div>
-
   <div class="tabs" role="tablist" aria-label="Tipo de horario">
     <button class="tab" role="tab" id="tab-adultos" aria-controls="panel" aria-selected="true" data-tab="adultos">Adultos<span class="tab-count" hidden></span></button>
     <button class="tab" role="tab" id="tab-infantil" aria-controls="panel" aria-selected="false" data-tab="infantil">Infantil y juvenil<span class="tab-count" hidden></span></button>
