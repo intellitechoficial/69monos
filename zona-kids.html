@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Zona KIDS · 69 Monkeys</title>
+<meta name="description" content="Kids MMA en 69 Monkeys: escuela pionera de MMA infantil desde 2003, de 4 a 16 años, con programa anti-bullying.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Permanent+Marker&family=Work+Sans:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="css/estilos.css">
+<style>
+  /* ---------- cabecera kids ---------- */
+  .hero--kids{height:clamp(420px,52vh,480px);}
+  .kids-bg{
+    position:absolute;inset:0;z-index:0;
+    background:
+      radial-gradient(60% 80% at 82% 70%, rgba(232,35,127,.45) 0%, rgba(232,35,127,0) 60%),
+      radial-gradient(40% 60% at 95% 10%, rgba(242,213,37,.28) 0%, rgba(242,213,37,0) 60%),
+      repeating-linear-gradient(135deg, rgba(245,236,221,.035) 0 2px, transparent 2px 22px),
+      var(--bg);
+  }
+  .kids-cutout{
+    position:absolute;right:max(28px, calc((100vw - 1180px)/2));bottom:0;z-index:1;
+    height:92%;width:auto;pointer-events:none;
+    filter:drop-shadow(0 18px 40px rgba(0,0,0,.55));
+  }
+  .hero--kids .hero-scrim{background:linear-gradient(180deg, rgba(21,16,12,.35) 0%, rgba(21,16,12,0) 30%, rgba(21,16,12,0) 75%, rgba(21,16,12,1) 100%);z-index:1;}
+  .hero--kids .hero-content{z-index:2;}
+  .hero--kids h1{max-width:13ch;}
+  .hero--kids .subtitle{max-width:46ch;}
+
+  /* ---------- tira de oferta ---------- */
+  .wrap{max-width:1180px;margin:0 auto;padding:0 28px;position:relative;z-index:1;}
+  .promo{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-top:26px;
+    background:var(--yellow);color:#1a1405;border-radius:3px;box-shadow:6px 6px 0 var(--magenta);
+  }
+  .promo div{padding:18px 24px;border-left:1px dashed rgba(26,20,5,.35);}
+  .promo div:first-child{border-left:0;}
+  .promo strong{display:block;font-family:var(--display);font-weight:400;font-size:22px;letter-spacing:.02em;text-transform:uppercase;line-height:1.1;}
+  .promo span{font-size:13.5px;font-weight:600;}
+
+  /* ---------- secciones ---------- */
+  .block{padding:80px 0 0;}
+  .block-head{max-width:60ch;margin-bottom:34px;}
+  .block-head h2{font-size:clamp(28px,3.6vw,42px);line-height:1.12;}
+  .block-head p{margin:16px 0 0;color:var(--ink);font-size:15.5px;line-height:1.65;}
+
+  /* ---------- buscador por edad ---------- */
+  .ages{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px;}
+  .age{
+    appearance:none;cursor:pointer;min-width:52px;height:52px;padding:0 10px;
+    border:1px solid var(--line-strong);border-radius:3px;background:none;color:var(--paper);
+    font-family:var(--display);font-size:20px;letter-spacing:.02em;
+    transition:background-color .16s ease,border-color .16s ease,transform .16s ease,box-shadow .16s ease;
+  }
+  .age:hover{border-color:var(--paper);transform:translate(-1px,-1px);}
+  .age[aria-pressed="true"]{background:var(--magenta);border-color:var(--magenta);color:#1a0510;box-shadow:4px 4px 0 var(--brass);transform:translate(-2px,-2px);}
+  .age-label{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-dim);margin:0 0 12px;}
+
+  .result{
+    display:grid;grid-template-columns:1.1fr 1fr;gap:0;
+    background:var(--bg-raised);border:1px solid var(--line);border-top:3px solid var(--c, var(--magenta));border-radius:3px;
+    overflow:hidden;
+  }
+  .result-main{padding:30px 30px 28px;position:relative;}
+  .result-main .tag{font-family:var(--display);font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:var(--c, var(--magenta));margin:0 0 8px;}
+  .result-main h3{font-size:clamp(30px,3.4vw,44px);line-height:1.05;}
+  .result-main .range{margin:6px 0 18px;color:var(--ink);font-size:15px;}
+  .result-main .desc{margin:0 0 22px;color:var(--ink-dim);font-size:14px;line-height:1.6;max-width:46ch;}
+  .fee{display:flex;align-items:baseline;gap:8px;}
+  .fee .amt{font-family:var(--display);font-size:52px;line-height:1;color:var(--yellow);}
+  .fee .per{font-family:var(--display);font-size:15px;letter-spacing:.06em;text-transform:uppercase;color:var(--paper);}
+  .fee-note{font-size:12.5px;color:var(--ink-dim);margin:6px 0 0;}
+  .result-side{padding:30px;border-left:1px solid var(--line);background:rgba(0,0,0,.18);}
+  .result-side h4{font-family:var(--display);font-weight:400;font-size:14px;letter-spacing:.14em;text-transform:uppercase;color:var(--brass);margin:0 0 14px;}
+  .slots{list-style:none;margin:0 0 20px;padding:0;display:flex;flex-direction:column;gap:10px;}
+  .slots li{display:grid;grid-template-columns:auto 1fr;gap:4px 14px;align-items:baseline;padding:12px 14px;border:1px solid var(--line);border-left:4px solid var(--sc, var(--paper));border-radius:3px;}
+  .slots .sn{font-family:var(--display);font-size:17px;color:var(--paper);letter-spacing:.03em;text-transform:uppercase;}
+  .slots .st{font-family:var(--display);font-size:16px;color:var(--yellow);text-align:right;}
+  .slots .sd{grid-column:1 / -1;font-size:12.5px;color:var(--ink-dim);}
+  .result-side .text-link{font-size:14px;}
+  @keyframes rise{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:none;}}
+  .result.swap .result-main, .result.swap .result-side{animation:rise .3s ease both;}
+  .result.swap .result-side{animation-delay:.05s;}
+
+  /* ---------- anti-bullying ---------- */
+  .bully{
+    display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start;
+  }
+  .stop{
+    display:inline-block;font-family:var(--display);font-size:13px;letter-spacing:.16em;text-transform:uppercase;
+    background:var(--magenta);color:#1a0510;padding:7px 12px;border-radius:2px;margin-bottom:16px;
+  }
+  .bully h2{font-size:clamp(30px,4vw,48px);line-height:1.08;}
+  .quote{margin:22px 0 0;padding:4px 0 4px 20px;border-left:4px solid var(--yellow);}
+  .quote p{margin:0 0 10px;color:var(--paper);font-size:18px;line-height:1.5;}
+  .quote p:last-child{margin:0;color:var(--ink);font-size:15px;}
+
+  .types-tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:12px;}
+  .type{
+    appearance:none;cursor:pointer;background:var(--bg-raised);border:1px solid var(--line);border-radius:3px;
+    padding:16px 8px 14px;color:var(--ink);display:flex;flex-direction:column;align-items:center;gap:8px;
+    font-family:var(--display);font-size:15px;letter-spacing:.05em;text-transform:uppercase;
+    transition:all .16s ease;
+  }
+  .type svg{width:26px;height:26px;}
+  .type:hover{color:var(--paper);border-color:var(--line-strong);}
+  .type[aria-selected="true"]{background:var(--yellow);border-color:var(--yellow);color:#1a1405;box-shadow:4px 4px 0 var(--magenta);transform:translate(-2px,-2px);}
+  .type-panel{background:var(--bg-raised);border:1px solid var(--line);border-radius:3px;padding:24px 26px;min-height:120px;}
+  .type-panel h3{font-size:24px;margin-bottom:8px;}
+  .type-panel p{margin:0;color:var(--ink);font-size:15.5px;line-height:1.6;}
+  .type-panel.swap{animation:rise .25s ease both;}
+  .bully-caption{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-dim);margin:0 0 12px;}
+
+  .help{
+    margin-top:22px;display:flex;align-items:center;gap:16px 22px;flex-wrap:wrap;
+    border:1px dashed var(--line-strong);border-radius:3px;padding:18px 22px;
+  }
+  .help p{margin:0;font-size:14px;line-height:1.5;color:var(--ink);flex:1 1 260px;}
+  .help p strong{color:var(--paper);}
+  .help .tel{font-family:var(--display);font-size:26px;color:var(--yellow);letter-spacing:.03em;}
+  .help .tel:hover{color:var(--magenta);}
+
+  /* ---------- valores ---------- */
+  .values-grid{display:grid;grid-template-columns:1fr auto;gap:40px;align-items:end;}
+  .values{display:flex;flex-wrap:wrap;gap:10px;margin:0;padding:0;list-style:none;}
+  .values li{
+    font-family:var(--display);font-size:clamp(16px,1.6vw,20px);letter-spacing:.04em;text-transform:uppercase;color:var(--paper);
+    border:1px solid var(--line-strong);border-radius:3px;padding:12px 16px;
+    transition:background-color .16s ease,color .16s ease,border-color .16s ease;
+  }
+  .values li:hover{background:var(--paper);color:var(--bg);border-color:var(--paper);}
+  .values li:nth-child(3n+1):hover{background:var(--yellow);border-color:var(--yellow);}
+  .values li:nth-child(3n+2):hover{background:var(--magenta);border-color:var(--magenta);}
+  .kick{width:clamp(200px,24vw,300px);height:auto;filter:drop-shadow(0 14px 30px rgba(0,0,0,.5));}
+
+  .creds{display:grid;grid-template-columns:repeat(4,1fr);gap:28px;margin-top:56px;}
+  .cred{border-top:1px solid var(--line);padding-top:16px;}
+  .cred .k{display:block;font-family:var(--display);font-size:22px;color:var(--yellow);letter-spacing:.02em;margin-bottom:6px;}
+  .cred .v{font-size:13px;color:var(--ink-dim);line-height:1.5;}
+
+  .final{text-align:center;padding:90px 28px 20px;}
+  .final h2{font-size:clamp(28px,4.4vw,46px);max-width:18ch;margin:0 auto 16px;line-height:1.14;}
+  .final p{max-width:48ch;margin:0 auto 30px;color:var(--ink-dim);font-size:15px;line-height:1.6;}
+  .final .row{display:flex;gap:26px;justify-content:center;align-items:center;flex-wrap:wrap;}
+
+  footer.footer--slim{padding-top:60px;}
+  footer.footer--slim .copyright{margin-top:0;padding-top:0;border-top:0;}
+
+  @media (max-width:980px){
+    .result{grid-template-columns:1fr;}
+    .result-side{border-left:0;border-top:1px solid var(--line);}
+    .bully{grid-template-columns:1fr;gap:34px;}
+    .values-grid{grid-template-columns:1fr;}
+    .kick{display:none;}
+    .creds{grid-template-columns:repeat(2,1fr);}
+  }
+  @media (max-width:760px){
+    .hero--kids{height:auto;min-height:440px;}
+    .kids-cutout{height:62%;right:-10px;opacity:.55;}
+    .hero--kids .hero-content{padding-top:110px;}
+    .wrap{padding:0 18px;}
+    .promo{grid-template-columns:1fr;}
+    .promo div{border-left:0;border-top:1px dashed rgba(26,20,5,.35);padding:14px 18px;}
+    .promo div:first-child{border-top:0;}
+    .block{padding-top:60px;}
+    .age{min-width:46px;height:46px;font-size:18px;}
+    .result-main,.result-side{padding:24px 20px;}
+    .types-tabs{grid-template-columns:repeat(2,1fr);}
+    .creds{gap:22px;}
+    .final{padding:70px 18px 10px;}
+  }
+</style>
+</head>
+<body>
+
+<section class="hero hero--short hero--kids" id="heroMedia">
+  <nav>
+    <div class="brand">
+      <a class="mk-logo" data-mk href="./" aria-label="69 Monkeys, ir al inicio">
+        <div class="mk-glow"></div>
+        <div class="mk-badge-wrap">
+          <div class="mk-badge">
+            <img class="mk-badge-img" src="img/logo.jpg" alt="">
+            <img class="mk-pupil mk-pupil-left" src="img/pupila-izq.png" alt="">
+            <img class="mk-pupil mk-pupil-right" src="img/pupila-der.png" alt="">
+            <img class="mk-tongue" src="img/lengua.png" alt="">
+          </div>
+        </div>
+      </a>
+      <div class="brand-text mono">
+        <div class="brand-name">69 MONKEYS</div>
+        <span class="brand-tag">Gimnasio de artes marciales</span>
+      </div>
+    </div>
+
+    <button class="nav-toggle" id="navToggle" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="navPanel">
+      <svg class="icon-menu" viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      <svg class="icon-close" viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg>
+    </button>
+
+    <div class="nav-panel" id="navPanel">
+    <div class="nav-menu">
+      <a class="text-link" href="./">Inicio</a>
+      <a class="text-link" href="horarios.html">Horarios</a>
+      <a class="text-link" href="precios.html">Precios</a>
+      <a class="text-link" href="https://www.69monos.com/que-ofrecemos">Actividades</a>
+      <a class="text-link" href="https://www.69monos.com/nuestra-historia">Historia</a>
+      <a class="text-link" href="https://www.69monos.com/contacto">Contacto</a>
+    </div>
+
+    <div class="nav-links">
+      <a class="icon-link" href="mailto:info@69monos.com" aria-label="Escríbenos por email">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12c0-3.3 0-4.95 1.03-5.97C5.05 5 6.7 5 10 5h4c3.3 0 4.95 0 5.97 1.03C21 7.05 21 8.7 21 12s0 4.95-1.03 5.97C18.95 19 17.3 19 14 19h-4c-3.3 0-4.95 0-5.97-1.03C3 16.95 3 15.3 3 12Z"/><path d="m6.5 8.5 3.58 2.687c1.155.866 1.732 1.3 2.42 1.3s1.265-.434 2.42-1.3L18.5 8.5"/></svg>
+      </a>
+      <a class="icon-link" href="https://www.instagram.com/69monos_kny/?hl=es" target="_blank" rel="noopener" aria-label="Síguenos en Instagram">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.2" cy="6.8" r="1.1" fill="currentColor" stroke="none"/></svg>
+      </a>
+      <a class="nav-link nav-phone mono" href="tel:+34661571448">661 57 14 48</a>
+    </div>
+    </div>
+  </nav>
+  <div class="nav-scrim" id="navScrim"></div>
+
+  <div class="kids-bg" aria-hidden="true"></div>
+  <img class="kids-cutout" src="img/kids-alumnas.webp" alt="Dos alumnas del equipo de MMA de 69 Monos">
+  <div class="hero-scrim"></div>
+
+  <div class="hero-content">
+    <h1>Kids MMA. Aprende a decir <em>basta</em>.</h1>
+    <p class="subtitle">Somos la escuela pionera del estado en MMA infantil: desde 2003, con un programa exclusivo adaptado a cada edad, de los 4 a los 16 años.</p>
+  </div>
+</section>
+
+<div class="wrap">
+  <div class="promo">
+    <div><strong>Primer mes gratis</strong><span>Solo pagas matrícula y seguro anual.</span></div>
+    <div><strong>Prueba 2 días gratis</strong><span>Ven a probar sin compromiso.</span></div>
+    <div><strong>Regalo con la inscripción</strong><span>Pregunta en recepción.</span></div>
+  </div>
+</div>
+
+<!-- ===== buscador por edad ===== -->
+<section class="block wrap" id="programas">
+  <div class="block-head">
+    <h2>¿Cuántos años <em>tiene</em>?</h2>
+    <p>Nuestro programa está clasificado por edades y etapas para la enseñanza marcial y la ayuda psicomotriz, acompañando a cada alumno en su desarrollo físico.</p>
+  </div>
+
+  <p class="age-label" id="ageLabel">Elige la edad</p>
+  <div class="ages" id="ages" role="group" aria-labelledby="ageLabel"></div>
+
+  <div class="result" id="result" aria-live="polite"></div>
+</section>
+
+<!-- ===== anti-bullying ===== -->
+<section class="block wrap" id="bullying">
+  <div class="bully">
+    <div>
+      <span class="stop">No al acoso escolar</span>
+      <h2>Escuela con programa <em>anti-bullying</em>.</h2>
+      <div class="quote">
+        <p>Nunca te quedes callado. Aprende a defenderte: te enseñamos a decir basta.</p>
+        <p>Todo empieza enseñando a ser persona y a no hostigar a los demás.</p>
+      </div>
+      <div class="help">
+        <p><strong>¿Tu hijo o hija sufre acoso?</strong> Teléfono del Ministerio de Educación para casos de acoso y malos tratos en centros educativos. También en el chat de <a class="text-link" href="https://www.anar.org" target="_blank" rel="noopener">ANAR</a>. Gratuito y anónimo.</p>
+        <a class="tel" href="tel:900018018">900 018 018</a>
+      </div>
+    </div>
+
+    <div>
+      <p class="bully-caption">Tipos de bullying · toca para ver</p>
+      <div class="types-tabs" role="tablist" aria-label="Tipos de bullying" id="types"></div>
+      <div class="type-panel" role="tabpanel" id="typePanel"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== valores ===== -->
+<section class="block wrap" id="valores">
+  <div class="values-grid">
+    <div>
+      <div class="block-head">
+        <h2>Lo que se entrena <em>aquí</em> no se queda en el tatami.</h2>
+        <p>Trabajamos sobre unos valores base y nuestro programa de formación 69 Monos, con técnicas de desarrollo personal enfocadas a mejorar el entorno familiar y escolar.</p>
+      </div>
+      <ul class="values">
+        <li>Autocontrol</li>
+        <li>Disciplina</li>
+        <li>Mejora escolar</li>
+        <li>Seguridad personal</li>
+        <li>Mejora física</li>
+        <li>Mayor autoestima</li>
+        <li>Valores psicopedagógicos</li>
+        <li>Concentración</li>
+        <li>Mejora del entorno familiar</li>
+      </ul>
+    </div>
+    <img class="kick" src="img/kids-patada.webp" alt="Alumna de 69 Monos entrenando con un saco de suelo" loading="lazy">
+  </div>
+
+  <div class="creds">
+    <div class="cred"><span class="k mono">2003</span><span class="v">Pioneros del estado en MMA infantil.</span></div>
+    <div class="cred"><span class="k mono">4 a 16 años</span><span class="v">Tres programas: Infantil, Junior y Cadete.</span></div>
+    <div class="cred"><span class="k mono">CSD</span><span class="v">Profesorado titulado por el Consejo Superior de Deportes.</span></div>
+    <div class="cred"><span class="k mono">FEL</span><span class="v">Y por la Federación Española de Lucha Olímpica.</span></div>
+  </div>
+</section>
+
+<section class="final">
+  <h2>Te acompañamos en cada <em>paso</em>.</h2>
+  <p>Te preparamos para crecer y adaptarte hasta ser adulto. Ven a probar dos días gratis, sin compromiso.</p>
+  <div class="row">
+    <a class="stamp-btn" href="mailto:info@69monos.com?subject=Prueba%20gratis%20Zona%20KIDS">Pide la prueba gratis</a>
+    <a class="text-link" href="horarios.html">Ver horarios</a>
+    <a class="text-link" href="precios.html">Ver precios</a>
+  </div>
+</section>
+
+<footer class="footer--slim">
+  <p class="copyright mono">© 2026 69 Monos. Todos los derechos reservados.</p>
+</footer>
+
+<script src="js/comun.js"></script>
+<script>
+(function(){
+  /* ===== programas por edad (mismos datos que horarios.html) ===== */
+  const CHECK = '<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>';
+  const PROGRAMS = [
+    {id:'infantil', name:'Infantil', from:4, to:7, c:'#39c3d6',
+     slots:[{n:'MMA', t:'17:30–18:15', d:'Lunes a jueves', c:'#d9cfbf'}]},
+    {id:'junior', name:'Junior', from:8, to:11, c:'#9bd14b',
+     slots:[{n:'MMA', t:'18:15–19:00', d:'Lunes a jueves', c:'#d9cfbf'}]},
+    {id:'cadete', name:'Cadete', from:12, to:16, c:'#f2d525',
+     slots:[
+       {n:'Boxeo', t:'17:00–18:30', d:'Lunes a jueves', c:'#f2883a'},
+       {n:'Muay Thai', t:'18:30–20:00', d:'Lunes a jueves', c:'#e8237f'},
+       {n:'MMA', t:'19:00–20:00', d:'Lunes a jueves', c:'#d9cfbf'},
+       {n:'Boxeo / Muay Thai', t:'17:00–18:00', d:'Viernes', c:'#f2883a'},
+       {n:'Grappling', t:'18:00–19:00', d:'Viernes', c:'#39c3d6'}
+     ]}
+  ];
+  const fee = (age)=> age < 12 ? {amt:'50€', note:'Cuota de menores de 12 años: todas las clases de su horario por edad.'} : {amt:'65€', note:'Cuota de mayores de 12 años: todas las clases que quiera.'};
+  const esc = (s)=> String(s).replace(/[&<>"]/g,(ch)=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[ch]));
+
+  const agesEl = document.getElementById('ages');
+  const resultEl = document.getElementById('result');
+  let age = 6;
+  try { const a = parseInt(localStorage.getItem('mk-kids-edad'),10); if (a>=4 && a<=16) age = a; } catch(e){}
+
+  function render(animate){
+    agesEl.innerHTML = Array.from({length:13},(_,i)=> i+4).map((a)=>
+      '<button type="button" class="age" data-age="'+a+'" aria-pressed="'+(a===age)+'" aria-label="'+a+' años">'+a+'</button>').join('');
+    const p = PROGRAMS.find((x)=> age >= x.from && age <= x.to);
+    const f = fee(age);
+    resultEl.style.setProperty('--c', p.c);
+    resultEl.innerHTML =
+      '<div class="result-main">'+
+        '<p class="tag">Programa para '+age+' años</p>'+
+        '<h3>'+esc(p.name)+'</h3>'+
+        '<p class="range">De los '+p.from+' a los '+p.to+' años</p>'+
+        '<p class="desc">Programa adaptado a su edad y etapa, con profesorado titulado y el programa anti-bullying de la escuela.</p>'+
+        '<div class="fee"><span class="amt">'+f.amt+'</span><span class="per">al mes</span></div>'+
+        '<p class="fee-note">'+esc(f.note)+' El primer mes es gratis.</p>'+
+      '</div>'+
+      '<div class="result-side">'+
+        '<h4>Sus clases</h4>'+
+        '<ul class="slots">'+p.slots.map((s)=>
+          '<li style="--sc:'+s.c+'"><span class="sn">'+esc(s.n)+'</span><span class="st">'+esc(s.t)+'</span><span class="sd">'+esc(s.d)+'</span></li>').join('')+
+        '</ul>'+
+        '<a class="text-link" href="horarios.html">Ver el horario completo y montar su rutina</a>'+
+      '</div>';
+    if (animate){ resultEl.classList.remove('swap'); void resultEl.offsetWidth; resultEl.classList.add('swap'); }
+  }
+  agesEl.addEventListener('click',(e)=>{
+    const b = e.target.closest('.age'); if (!b) return;
+    age = +b.dataset.age;
+    try { localStorage.setItem('mk-kids-edad', age); } catch(err){}
+    render(true);
+    const nb = agesEl.querySelector('[data-age="'+age+'"]'); if (nb) nb.focus();
+  });
+  render(false);
+
+  /* ===== tipos de bullying ===== */
+  const TYPES = [
+    {k:'fisico', n:'Físico', d:'Empujones, patadas, agresiones…',
+     i:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 11V7a2 2 0 1 1 4 0v3m0-1V6a2 2 0 1 1 4 0v4m0-1a2 2 0 1 1 4 0v4a7 7 0 0 1-7 7h-1a6 6 0 0 1-6-6v-2a2 2 0 1 1 4 0"/></svg>'},
+    {k:'verbal', n:'Verbal', d:'Insultos, menosprecios en público, resaltar defectos físicos…',
+     i:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12Z"/><path d="M9 10.5h.01M12 10.5h.01M15 10.5h.01"/></svg>'},
+    {k:'psico', n:'Psicológico', d:'Minan la autoestima de la persona y fomentan su sensación de temor.',
+     i:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 11c0 5.6-7 10-7 10Z"/><path d="m12 8.5-1.5 3 3 1-1.5 3"/></svg>'},
+    {k:'social', n:'Social', d:'Pretende aislar al joven del resto del grupo y de sus compañeros.',
+     i:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="8" r="2.5"/><circle cx="12" cy="8" r="2.5"/><circle cx="19" cy="15" r="2.5"/><path d="M2.5 18a3.5 3.5 0 0 1 7 0M8.5 18a3.5 3.5 0 0 1 7 0"/></svg>'}
+  ];
+  const typesEl = document.getElementById('types');
+  const panel = document.getElementById('typePanel');
+  let cur = 0;
+  function renderTypes(animate){
+    typesEl.innerHTML = TYPES.map((t,i)=>
+      '<button type="button" class="type" role="tab" id="t-'+t.k+'" aria-controls="typePanel" aria-selected="'+(i===cur)+'" tabindex="'+(i===cur?0:-1)+'" data-i="'+i+'">'+t.i+t.n+'</button>').join('');
+    const t = TYPES[cur];
+    panel.setAttribute('aria-labelledby','t-'+t.k);
+    panel.innerHTML = '<h3>Bullying '+t.n.toLowerCase()+'</h3><p>'+t.d+'</p>';
+    if (animate){ panel.classList.remove('swap'); void panel.offsetWidth; panel.classList.add('swap'); }
+  }
+  typesEl.addEventListener('click',(e)=>{
+    const b = e.target.closest('.type'); if (!b) return;
+    cur = +b.dataset.i; renderTypes(true); typesEl.querySelector('[data-i="'+cur+'"]').focus();
+  });
+  typesEl.addEventListener('keydown',(e)=>{
+    if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
+    cur = (cur + (e.key === 'ArrowRight' ? 1 : TYPES.length - 1)) % TYPES.length;
+    renderTypes(true); typesEl.querySelector('[data-i="'+cur+'"]').focus();
+  });
+  renderTypes(false);
+})();
+</script>
+</body>
+</html>
