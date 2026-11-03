@@ -44,6 +44,7 @@
   .block-head{max-width:60ch;margin-bottom:34px;}
   .block-head h2{font-size:clamp(28px,3.6vw,42px);line-height:1.12;}
   .block-head p{margin:16px 0 0;color:var(--ink);font-size:15.5px;line-height:1.65;}
+  @media (min-width:761px){.block-head:has(.p-wide){max-width:none;}}
 
   /* ---------- buscador por edad ---------- */
   .ages{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px;}
@@ -281,7 +282,7 @@
     <div>
       <div class="block-head">
         <h2>Lo que se entrena <em>aquí</em> no se queda en el tatami.</h2>
-        <p>Trabajamos sobre unos valores base y nuestro programa de formación 69 Monos, con técnicas de desarrollo personal enfocadas a mejorar el entorno familiar y escolar.</p>
+        <p class="p-wide">Trabajamos sobre unos valores base y nuestro programa de formación 69 Monos, con técnicas de desarrollo personal enfocadas a mejorar el entorno familiar y escolar.</p>
       </div>
       <ul class="values">
         <li>Autocontrol</li>
