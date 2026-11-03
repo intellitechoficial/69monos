@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Historia y contacto · 69 Monkeys</title>
+<meta name="description" content="La historia de 69 Monos desde 2003 y cómo contactar con nosotros en Cornellà de Llobregat.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Permanent+Marker&family=Work+Sans:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="css/estilos.css">
+<style>
+  .hero--short .hero-media img{object-position:50% 50%;}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 28px;position:relative;z-index:1;}
+  .block{padding-top:70px;}
+  #historia{padding-top:44px;}
+  html{scroll-behavior:smooth;}
+  #historia,#contacto{scroll-margin-top:20px;}
+  .block-head{max-width:62ch;margin-bottom:30px;}
+  .block-head h2{font-size:clamp(28px,3.6vw,42px);line-height:1.12;}
+  .block-head p{margin:16px 0 0;color:var(--ink);font-size:15.5px;line-height:1.65;}
+  .kicker{display:inline-block;font-family:var(--display);font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:var(--brass);margin:0 0 10px;}
+
+  /* ---------- tabs historia / contacto ---------- */
+  .jump{display:flex;gap:6px;border-bottom:1px solid var(--line);margin:22px 0 0;flex-wrap:wrap;}
+  .jump a{
+    font-family:var(--display);font-size:18px;letter-spacing:.04em;text-transform:uppercase;color:var(--ink-dim);
+    padding:12px 18px 14px;margin-bottom:-1px;border-bottom:3px solid transparent;transition:color .2s ease,border-color .2s ease;
+  }
+  .jump a:hover{color:var(--paper);}
+  .jump a.on{color:var(--paper);border-bottom-color:var(--magenta);}
+
+  /* ---------- línea de tiempo ---------- */
+  .years{display:grid;grid-template-columns:repeat(4,1fr);position:relative;margin-bottom:22px;}
+  .years::before{content:"";position:absolute;left:0;right:0;top:27px;height:2px;background:var(--line-strong);}
+  .years .progress{position:absolute;left:0;top:27px;height:2px;background:var(--magenta);transition:width .35s cubic-bezier(.2,.7,.3,1);}
+  .yr{
+    appearance:none;background:none;border:0;cursor:pointer;position:relative;padding:0 0 4px;text-align:left;
+    display:flex;flex-direction:column;align-items:flex-start;gap:12px;color:var(--ink-dim);
+  }
+  .yr .dot{width:18px;height:18px;border-radius:50%;background:var(--bg);border:2px solid var(--line-strong);margin-top:19px;transition:all .2s ease;position:relative;z-index:1;}
+  .yr .y{font-family:var(--display);font-size:clamp(28px,3.4vw,44px);line-height:1;letter-spacing:.01em;transition:color .2s ease;}
+  .yr .l{font-size:12px;letter-spacing:.12em;text-transform:uppercase;}
+  .yr:hover .y{color:var(--paper);}
+  .yr.past .dot{border-color:var(--magenta);background:var(--magenta);}
+  .yr[aria-selected="true"] .dot{background:var(--yellow);border-color:var(--yellow);box-shadow:0 0 0 6px rgba(242,213,37,.18);}
+  .yr[aria-selected="true"] .y{color:var(--yellow);}
+  .yr[aria-selected="true"] .l{color:var(--paper);}
+
+  .story{
+    display:grid;grid-template-columns:1fr auto;gap:28px;align-items:end;
+    background:var(--bg-raised);border:1px solid var(--line);border-left:4px solid var(--yellow);border-radius:3px;
+    padding:28px 30px;min-height:200px;
+  }
+  .story h3{font-size:clamp(24px,2.6vw,32px);line-height:1.12;margin-bottom:12px;}
+  .story p{margin:0;color:var(--ink);font-size:16px;line-height:1.65;max-width:68ch;}
+  .story .nav{display:flex;gap:8px;}
+  .story .nav button{
+    appearance:none;width:46px;height:46px;border-radius:3px;border:1px solid var(--line-strong);background:none;color:var(--paper);cursor:pointer;
+    display:grid;place-items:center;transition:all .16s ease;
+  }
+  .story .nav button:hover:not(:disabled){background:var(--paper);color:var(--bg);}
+  .story .nav button:disabled{opacity:.3;cursor:default;}
+  @keyframes rise{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:none;}}
+  .story.swap .txt{animation:rise .3s ease both;}
+
+  /* ---------- fundador + equipo ---------- */
+  .team{display:grid;grid-template-columns:.9fr 1.1fr;gap:28px;margin-top:56px;align-items:stretch;}
+  .founder{
+    position:relative;overflow:hidden;border-radius:3px;padding:30px;
+    background:radial-gradient(70% 90% at 100% 0%, rgba(232,35,127,.35), rgba(232,35,127,0) 60%), var(--bg-raised);
+    border:1px solid var(--line);display:flex;flex-direction:column;justify-content:flex-end;min-height:260px;
+  }
+  .founder .mk-logo{position:absolute;top:22px;right:22px;width:96px;}
+  .founder .role{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px;}
+  .founder .role span{font-family:var(--display);font-size:12px;letter-spacing:.12em;text-transform:uppercase;background:var(--yellow);color:#1a1405;padding:5px 10px;border-radius:2px;}
+  .founder h3{font-size:clamp(30px,3.4vw,44px);line-height:1.02;}
+  .founder p{margin:14px 0 0;color:var(--ink);font-size:14.5px;line-height:1.6;max-width:42ch;}
+  .team-points{display:grid;grid-template-columns:1fr 1fr;gap:22px 28px;}
+  .tp{border-top:1px solid var(--line);padding-top:16px;}
+  .tp .k{display:block;font-family:var(--display);font-size:20px;color:var(--paper);letter-spacing:.02em;text-transform:uppercase;margin-bottom:6px;}
+  .tp .v{font-size:13.5px;color:var(--ink-dim);line-height:1.55;}
+
+  /* ---------- contacto ---------- */
+  .contact{display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:start;}
+  .status{
+    display:flex;align-items:center;gap:14px;padding:16px 20px;border-radius:3px;margin-bottom:18px;
+    background:var(--bg-raised);border:1px solid var(--line);
+  }
+  .status .led{width:12px;height:12px;border-radius:50%;flex:none;background:var(--ink-dim);}
+  .status.open .led{background:#5ad16b;box-shadow:0 0 0 0 rgba(90,209,107,.6);animation:ping 2s infinite;}
+  @keyframes ping{0%{box-shadow:0 0 0 0 rgba(90,209,107,.55);}80%,100%{box-shadow:0 0 0 10px rgba(90,209,107,0);}}
+  .status strong{font-family:var(--display);font-weight:400;font-size:20px;letter-spacing:.03em;text-transform:uppercase;color:var(--paper);display:block;}
+  .status span{font-size:13px;color:var(--ink-dim);}
+
+  .hours{list-style:none;margin:0 0 24px;padding:0;border:1px solid var(--line);border-radius:3px;}
+  .hours li{display:flex;justify-content:space-between;gap:12px;padding:12px 18px;border-top:1px solid var(--line);font-size:14px;color:var(--ink);}
+  .hours li:first-child{border-top:0;}
+  .hours li.today{background:rgba(242,213,37,.08);color:var(--paper);}
+  .hours li.today b::after{content:" · hoy";color:var(--yellow);font-weight:600;}
+  .hours b{font-weight:600;}
+
+  .channels{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+  .ch{
+    display:flex;gap:14px;align-items:center;padding:16px 18px;border:1px solid var(--line);border-radius:3px;background:var(--bg-raised);
+    transition:transform .16s ease, box-shadow .16s ease, border-color .16s ease;
+  }
+  .ch:hover{transform:translate(-2px,-2px);box-shadow:4px 4px 0 var(--magenta);border-color:var(--magenta);}
+  .ch svg{flex:none;color:var(--yellow);}
+  .ch .t{display:block;font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-dim);}
+  .ch .v{display:block;font-family:var(--display);font-size:18px;letter-spacing:.03em;color:var(--paper);word-break:break-word;}
+  .ch--wide{grid-column:1 / -1;}
+
+  /* formulario */
+  .form{background:var(--bg-raised);border:1px solid var(--line);border-top:3px solid var(--magenta);border-radius:3px;padding:28px;}
+  .form h3{font-size:26px;margin-bottom:6px;}
+  .form > p{margin:0 0 20px;color:var(--ink-dim);font-size:14px;line-height:1.55;}
+  .field{margin-bottom:16px;}
+  .field label,.field .lbl{display:block;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink);margin-bottom:8px;}
+  .field input,.field textarea{
+    width:100%;background:var(--bg);border:1px solid var(--line-strong);border-radius:3px;color:var(--paper);
+    font:inherit;font-size:15px;padding:12px 14px;transition:border-color .16s ease;
+  }
+  .field textarea{min-height:110px;resize:vertical;}
+  .field input:focus,.field textarea:focus{outline:none;border-color:var(--magenta);}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;}
+  .chip{
+    appearance:none;cursor:pointer;background:none;border:1px solid var(--line-strong);border-radius:3px;color:var(--ink);
+    font-family:var(--display);font-size:14px;letter-spacing:.04em;text-transform:uppercase;padding:9px 12px;transition:all .16s ease;
+  }
+  .chip:hover{color:var(--paper);border-color:var(--paper);}
+  .chip[aria-pressed="true"]{background:var(--yellow);border-color:var(--yellow);color:#1a1405;}
+  .send{display:flex;gap:12px;flex-wrap:wrap;margin-top:6px;}
+  button.stamp-btn{border:0;cursor:pointer;}
+  .btn-wa{background:#25d366;color:#06200f;box-shadow:4px 4px 0 var(--brass);}
+  .btn-wa:hover{box-shadow:6px 6px 0 var(--brass);}
+  .btn-mail{background:var(--paper);color:var(--bg);box-shadow:4px 4px 0 var(--magenta);}
+  .btn-mail:hover{box-shadow:6px 6px 0 var(--magenta);}
+  .form-err{color:#ff8fbf;font-size:13px;margin:10px 0 0;min-height:1em;}
+
+  /* ubicación */
+  .place{display:grid;grid-template-columns:.8fr 1.2fr;gap:0;margin-top:28px;border:1px solid var(--line);border-radius:3px;overflow:hidden;background:var(--bg-raised);}
+  .place-info{padding:28px;display:flex;flex-direction:column;gap:10px;justify-content:center;}
+  .place-info .kicker{margin:0;}
+  .place-info h3{font-size:28px;line-height:1.1;}
+  .place-info p{margin:0 0 10px;color:var(--ink);font-size:15px;line-height:1.55;}
+  .place-info .stamp-btn{align-self:flex-start;}
+  .map{min-height:340px;background:#222;}
+  .map iframe{width:100%;height:100%;min-height:340px;border:0;display:block;filter:grayscale(.35) contrast(1.05);}
+
+  footer.footer--slim{padding-top:60px;}
+  footer.footer--slim .copyright{margin-top:0;padding-top:0;border-top:0;}
+
+  @media (max-width:980px){
+    .team{grid-template-columns:1fr;}
+    .contact{grid-template-columns:1fr;}
+    .place{grid-template-columns:1fr;}
+  }
+  @media (max-width:760px){
+    .wrap{padding:0 18px;}
+    .block{padding-top:56px;}
+    .jump a{font-size:16px;padding:10px 12px 12px;}
+    .years{grid-template-columns:repeat(4,1fr);}
+    .yr .l{display:none;}
+    .yr .y{font-size:24px;}
+    .years::before,.years .progress{top:27px;}
+    .story{grid-template-columns:1fr;padding:22px 20px;}
+    .story .nav{justify-content:flex-end;}
+    .team-points{grid-template-columns:1fr;}
+    .founder{padding:24px 20px;}
+    .founder .mk-logo{width:70px;}
+    .channels{grid-template-columns:1fr;}
+    .form{padding:22px 18px;}
+    .place-info{padding:22px 20px;}
+  }
+</style>
+</head>
+<body>
+
+<section class="hero hero--short" id="heroMedia">
+  <nav>
+    <div class="brand">
+      <a class="mk-logo" data-mk href="./" aria-label="69 Monkeys, ir al inicio">
+        <div class="mk-glow"></div>
+        <div class="mk-badge-wrap">
+          <div class="mk-badge">
+            <img class="mk-badge-img" src="img/logo.jpg" alt="">
+            <img class="mk-pupil mk-pupil-left" src="img/pupila-izq.png" alt="">
+            <img class="mk-pupil mk-pupil-right" src="img/pupila-der.png" alt="">
+            <img class="mk-tongue" src="img/lengua.png" alt="">
+          </div>
+        </div>
+      </a>
+      <div class="brand-text mono">
+        <div class="brand-name">69 MONKEYS</div>
+        <span class="brand-tag">Gimnasio de artes marciales</span>
+      </div>
+    </div>
+
+    <button class="nav-toggle" id="navToggle" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="navPanel">
+      <svg class="icon-menu" viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      <svg class="icon-close" viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg>
+    </button>
+
+    <div class="nav-panel" id="navPanel">
+    <div class="nav-menu">
+      <a class="text-link" href="./">Inicio</a>
+      <a class="text-link" href="horarios.html">Horarios</a>
+      <a class="text-link" href="precios.html">Precios</a>
+      <a class="text-link" href="https://www.69monos.com/que-ofrecemos">Actividades</a>
+      <a class="text-link" href="historia-contacto.html" aria-current="page">Historia y contacto</a>
+    </div>
+
+    <div class="nav-links">
+      <a class="icon-link" href="mailto:info@69monos.com" aria-label="Escríbenos por email">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12c0-3.3 0-4.95 1.03-5.97C5.05 5 6.7 5 10 5h4c3.3 0 4.95 0 5.97 1.03C21 7.05 21 8.7 21 12s0 4.95-1.03 5.97C18.95 19 17.3 19 14 19h-4c-3.3 0-4.95 0-5.97-1.03C3 16.95 3 15.3 3 12Z"/><path d="m6.5 8.5 3.58 2.687c1.155.866 1.732 1.3 2.42 1.3s1.265-.434 2.42-1.3L18.5 8.5"/></svg>
+      </a>
+      <a class="icon-link" href="https://www.instagram.com/69monos_kny/?hl=es" target="_blank" rel="noopener" aria-label="Síguenos en Instagram">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.2" cy="6.8" r="1.1" fill="currentColor" stroke="none"/></svg>
+      </a>
+      <a class="nav-link nav-phone mono" href="tel:+34661571448">661 57 14 48</a>
+    </div>
+    </div>
+  </nav>
+  <div class="nav-scrim" id="navScrim"></div>
+
+  <div class="hero-media">
+    <img src="img/historia-fondo.jpg" alt="" fetchpriority="high">
+  </div>
+  <div class="hero-scrim"></div>
+
+  <div class="hero-content">
+    <h1>Más de veinte años <em>en la esquina</em>.</h1>
+    <p class="subtitle">Desde 2003 formando peleadores en Cornellà de Llobregat. Conoce nuestra historia y ven a vernos.</p>
+  </div>
+</section>
+
+<div class="wrap">
+  <div class="jump" role="navigation" aria-label="Secciones">
+    <a href="#historia" class="on" data-sec="historia">Historia</a>
+    <a href="#contacto" data-sec="contacto">Contacto</a>
+  </div>
+</div>
+
+<!-- ===================== HISTORIA ===================== -->
+<section class="block wrap" id="historia">
+  <div class="block-head">
+    <p class="kicker">Nuestra historia</p>
+    <h2>De los primeros en traer el <em>Vale Tudo</em> a uno de los teams más antiguos de España.</h2>
+  </div>
+
+  <div class="years" role="tablist" aria-label="Línea de tiempo" id="years"><span class="progress" id="progress"></span></div>
+  <div class="story" id="story" role="tabpanel" aria-live="polite">
+    <div class="txt" id="storyTxt"></div>
+    <div class="nav">
+      <button type="button" id="prevBtn" aria-label="Anterior"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
+      <button type="button" id="nextBtn" aria-label="Siguiente"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></button>
+    </div>
+  </div>
+
+  <div class="team">
+    <div class="founder">
+      <div class="mk-logo" data-mk aria-hidden="true">
+        <div class="mk-glow"></div>
+        <div class="mk-badge-wrap">
+          <div class="mk-badge">
+            <img class="mk-badge-img" src="img/logo.jpg" alt="">
+            <img class="mk-pupil mk-pupil-left" src="img/pupila-izq.png" alt="">
+            <img class="mk-pupil mk-pupil-right" src="img/pupila-der.png" alt="">
+            <img class="mk-tongue" src="img/lengua.png" alt="">
+          </div>
+        </div>
+      </div>
+      <p class="kicker">Fundador</p>
+      <h3>Alejandro Gracia</h3>
+      <div class="role"><span>CEO Founder</span><span>Head Coach</span></div>
+      <p>Fundó 69 Monos en 2003 y lleva más de dos décadas apostando por las MMA como deporte reglado y por el deporte base.</p>
+    </div>
+
+    <div>
+      <div class="block-head" style="margin-bottom:22px">
+        <p class="kicker">Nuestro equipo</p>
+        <h2>Profesores de <em>verdad</em>.</h2>
+      </div>
+      <div class="team-points">
+        <div class="tp"><span class="k">Titulados CSD</span><span class="v">Profesores y monitores del Consejo Superior de Deportes a nivel profesional, con amplia experiencia formativa y educativa.</span></div>
+        <div class="tp"><span class="k">Team histórico</span><span class="v">En competición, 69 Monos es uno de los teams más antiguos de España.</span></div>
+        <div class="tp"><span class="k">Programas por edad</span><span class="v">Programas educativos y de formación para cada grupo de edad y nivel.</span></div>
+        <div class="tp"><span class="k">Titulación oficial</span><span class="v">Equipo propio de formación para obtener la titulación oficial del Estado.</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== CONTACTO ===================== -->
+<section class="block wrap" id="contacto">
+  <div class="block-head">
+    <p class="kicker">Contacto</p>
+    <h2>Escríbenos, llámanos o <em>ven a vernos</em>.</h2>
+    <p>Puedes contactarnos por correo, teléfono, WhatsApp o en persona. Te atendemos en el gimnasio y resolvemos cualquier duda que tengas.</p>
+  </div>
+
+  <div class="contact">
+    <div>
+      <div class="status" id="status">
+        <span class="led"></span>
+        <div><strong id="statusTitle">Horario de atención</strong><span id="statusSub">Lunes a viernes</span></div>
+      </div>
+      <ul class="hours" id="hours"></ul>
+
+      <div class="channels">
+        <a class="ch" href="tel:+34661571448">
+          <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg>
+          <span><span class="t">Información</span><span class="v">661 57 14 48</span></span>
+        </a>
+        <a class="ch" href="tel:+34661571220">
+          <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg>
+          <span><span class="t">Administración</span><span class="v">661 57 12 20</span></span>
+        </a>
+        <a class="ch" href="mailto:info@69monos.com">
+          <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m4 7 8 6 8-6"/></svg>
+          <span><span class="t">Email</span><span class="v">info@69monos.com</span></span>
+        </a>
+        <a class="ch" href="https://www.instagram.com/69monos_kny/?hl=es" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.2" cy="6.8" r="1.1" fill="currentColor" stroke="none"/></svg>
+          <span><span class="t">Instagram</span><span class="v">@69monos_kny</span></span>
+        </a>
+      </div>
+    </div>
+
+    <form class="form" id="form" novalidate>
+      <h3>Haz tu consulta</h3>
+      <p>Rellena esto y elige cómo enviarlo: se abrirá WhatsApp o tu correo con el mensaje ya escrito.</p>
+      <div class="field">
+        <label for="fName">Tu nombre</label>
+        <input id="fName" name="nombre" autocomplete="name" placeholder="Nombre y apellido">
+      </div>
+      <div class="field">
+        <span class="lbl" id="fTopicLbl">Me interesa</span>
+        <div class="chips" id="topics" role="group" aria-labelledby="fTopicLbl"></div>
+      </div>
+      <div class="field">
+        <label for="fMsg">Tu mensaje</label>
+        <textarea id="fMsg" name="mensaje" placeholder="Cuéntanos qué quieres saber"></textarea>
+      </div>
+      <div class="send">
+        <button class="stamp-btn btn-wa" type="button" id="sendWa">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.6.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3a.5.5 0 0 0 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 2.9 2.9 0 0 0-.9 2.2 5.1 5.1 0 0 0 1.1 2.7 11.6 11.6 0 0 0 4.4 3.9c1.6.7 2.3.8 3.1.6a2.7 2.7 0 0 0 1.8-1.2 2.2 2.2 0 0 0 .1-1.3c0-.1-.2-.2-.5-.3Z"/></svg>
+          Enviar por WhatsApp
+        </button>
+        <button class="stamp-btn btn-mail" type="button" id="sendMail">Enviar por email</button>
+      </div>
+      <p class="form-err" id="formErr" aria-live="polite"></p>
+    </form>
+  </div>
+
+  <div class="place">
+    <div class="place-info">
+      <p class="kicker">Dónde estamos</p>
+      <h3>C/ Bellaterra, 41</h3>
+      <p>08940 Cornellà de Llobregat<br>Barcelona</p>
+      <a class="stamp-btn" href="https://www.google.com/maps/dir/?api=1&destination=41.3572438,2.0744555" target="_blank" rel="noopener">Cómo llegar</a>
+    </div>
+    <div class="map">
+      <iframe title="Mapa: 69 Monos, C/ Bellaterra 41, Cornellà de Llobregat" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+        src="https://www.google.com/maps?q=41.3572438,2.0744555&z=16&output=embed"></iframe>
+    </div>
+  </div>
+</section>
+
+<footer class="footer--slim">
+  <p class="copyright mono">© 2026 69 Monos. Todos los derechos reservados.</p>
+</footer>
+
+<script src="js/comun.js"></script>
+<script>
+(function(){
+  /* ================= HISTORIA ================= */
+  const STORY = [
+    {y:'2003', l:'Nace 69 Monos', h:'Nace 69 Monos',
+     p:'69 Monos nace de la mano de Alejandro Gracia, siendo uno de los primeros equipos nacionales en ofrecer Vale Tudo (MMA).'},
+    {y:'2007', l:'MMA infantil', h:'Pioneros en MMA infantil',
+     p:'Apuesta por el deporte base: la escuela pionera del Estado español en ofrecer por primera vez MMA infantil desde los 4 años en exclusivo. La escuela piloto, en Cornellà de Llobregat, desarrolla un programa propio de formación únicamente de MMA.'},
+    {y:'2017', l:'Primer evento', h:'El primer evento de MMA infantil',
+     p:'Organizamos de forma experimental el primer evento de MMA infantil, con todas las categorías desde los 4 años de edad, en Sitges (Barcelona).'},
+    {y:'Hoy', l:'Crecemos', h:'Un espacio para competidores',
+     p:'Tras dos décadas de experiencia, llevamos 69 Monos a un plano de crecimiento: un espacio reservado para la preparación de competidores, apartado del resto de usuarios y con una atención profesional única.'}
+  ];
+  const yearsEl = document.getElementById('years');
+  const progress = document.getElementById('progress');
+  const story = document.getElementById('story');
+  const txt = document.getElementById('storyTxt');
+  const prev = document.getElementById('prevBtn'), next = document.getElementById('nextBtn');
+  let cur = 0;
+  yearsEl.insertAdjacentHTML('beforeend', STORY.map((s,i)=>
+    '<button type="button" class="yr" role="tab" id="yr-'+i+'" data-i="'+i+'" aria-controls="story"><span class="dot"></span><span class="y">'+s.y+'</span><span class="l">'+s.l+'</span></button>').join(''));
+  function show(i, animate){
+    cur = Math.max(0, Math.min(STORY.length-1, i));
+    yearsEl.querySelectorAll('.yr').forEach((b,j)=>{
+      b.setAttribute('aria-selected', String(j===cur));
+      b.tabIndex = j===cur ? 0 : -1;
+      b.classList.toggle('past', j < cur);
+    });
+    const btn = yearsEl.querySelector('#yr-'+cur);
+    progress.style.width = (btn.offsetLeft + 9) + 'px';
+    story.setAttribute('aria-labelledby','yr-'+cur);
+    txt.innerHTML = '<h3>'+STORY[cur].h+'</h3><p>'+STORY[cur].p+'</p>';
+    prev.disabled = cur === 0; next.disabled = cur === STORY.length-1;
+    if (animate){ story.classList.remove('swap'); void story.offsetWidth; story.classList.add('swap'); }
+  }
+  yearsEl.addEventListener('click',(e)=>{ const b = e.target.closest('.yr'); if (b) show(+b.dataset.i, true); });
+  yearsEl.addEventListener('keydown',(e)=>{
+    if (e.key === 'ArrowRight'){ show(cur+1, true); yearsEl.querySelector('#yr-'+cur).focus(); }
+    if (e.key === 'ArrowLeft'){ show(cur-1, true); yearsEl.querySelector('#yr-'+cur).focus(); }
+  });
+  prev.addEventListener('click',()=> show(cur-1, true));
+  next.addEventListener('click',()=> show(cur+1, true));
+  window.addEventListener('resize',()=> show(cur, false));
+  show(0, false);
+
+  /* ================= HORARIO DE ATENCIÓN ================= */
+  // Lunes a viernes: 9:15–13:00 y 15:30–22:00 (hora de Madrid)
+  const SLOTS = [[9*60+15, 13*60],[15*60+30, 22*60]];
+  const DAYN = ['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'];
+  function madridNow(){
+    const parts = new Intl.DateTimeFormat('es-ES',{timeZone:'Europe/Madrid',weekday:'short',hour:'2-digit',minute:'2-digit',hour12:false}).formatToParts(new Date());
+    const get = (t)=> (parts.find((p)=>p.type===t)||{}).value;
+    const wd = ['dom','lun','mar','mié','jue','vie','sáb'].findIndex((d)=> (get('weekday')||'').toLowerCase().startsWith(d));
+    return {day: wd < 0 ? new Date().getDay() : wd, min: (+get('hour'))%24*60 + (+get('minute'))};
+  }
+  const fmt = (m)=> String(Math.floor(m/60)).padStart(2,'0')+':'+String(m%60).padStart(2,'0');
+  function renderStatus(){
+    const now = madridNow();
+    const weekday = now.day >= 1 && now.day <= 5;
+    const el = document.getElementById('status'), t = document.getElementById('statusTitle'), s = document.getElementById('statusSub');
+    let open = false, msg = '';
+    if (weekday){
+      const slot = SLOTS.find(([a,b])=> now.min >= a && now.min < b);
+      if (slot){ open = true; msg = 'Te atendemos hasta las '+fmt(slot[1])+'.'; }
+      else {
+        const nextSlot = SLOTS.find(([a])=> now.min < a);
+        if (nextSlot) msg = 'Hoy volvemos a atender a las '+fmt(nextSlot[0])+'.';
+        else msg = now.day === 5 ? 'Volvemos el lunes a las 09:15.' : 'Mañana te atendemos desde las 09:15.';
+      }
+    } else msg = 'El lunes te atendemos desde las 09:15.';
+    el.classList.toggle('open', open);
+    t.textContent = open ? 'Abierto ahora' : 'Ahora cerrado';
+    s.textContent = msg;
+    const rows = [
+      ['Lunes a viernes · mañanas','09:15 – 13:00', weekday],
+      ['Lunes a viernes · tardes','15:30 – 22:00', weekday],
+      ['Fines de semana','Escríbenos por WhatsApp o email', !weekday]
+    ];
+    document.getElementById('hours').innerHTML = rows.map((r)=> '<li'+(r[2]?' class="today"':'')+'><b>'+r[0]+'</b><span>'+r[1]+'</span></li>').join('');
+  }
+  renderStatus(); setInterval(renderStatus, 60000);
+
+  /* ================= FORMULARIO ================= */
+  const TOPICS = ['Prueba gratis','Horarios','Precios','Zona KIDS','Competición','Otra cosa'];
+  const topicsEl = document.getElementById('topics');
+  const chosen = new Set();
+  topicsEl.innerHTML = TOPICS.map((t)=> '<button type="button" class="chip" aria-pressed="false" data-t="'+t+'">'+t+'</button>').join('');
+  topicsEl.addEventListener('click',(e)=>{
+    const b = e.target.closest('.chip'); if (!b) return;
+    const t = b.dataset.t; chosen.has(t) ? chosen.delete(t) : chosen.add(t);
+    b.setAttribute('aria-pressed', String(chosen.has(t)));
+  });
+  const nameEl = document.getElementById('fName'), msgEl = document.getElementById('fMsg'), err = document.getElementById('formErr');
+  function compose(){
+    const name = nameEl.value.trim(), msg = msgEl.value.trim();
+    if (!name && !msg && !chosen.size){ err.textContent = 'Escribe tu nombre o tu consulta antes de enviar.'; return null; }
+    err.textContent = '';
+    let out = 'Hola 69 Monos';
+    out += name ? ', soy '+name+'.' : '.';
+    if (chosen.size) out += '\nMe interesa: '+[...chosen].join(', ')+'.';
+    if (msg) out += '\n\n'+msg;
+    return out;
+  }
+  document.getElementById('sendWa').addEventListener('click',()=>{
+    const m = compose(); if (!m) return;
+    window.open('https://wa.me/34661571448?text='+encodeURIComponent(m), '_blank', 'noopener');
+  });
+  document.getElementById('sendMail').addEventListener('click',()=>{
+    const m = compose(); if (!m) return;
+    const subject = 'Consulta web' + (chosen.size ? ': '+[...chosen].join(', ') : '');
+    location.href = 'mailto:info@69monos.com?subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent(m);
+  });
+
+  /* ================= pestañas Historia / Contacto ================= */
+  const jumps = document.querySelectorAll('.jump a');
+  const secs = ['historia','contacto'].map((id)=> document.getElementById(id));
+  function markJump(){
+    const y = window.scrollY + window.innerHeight*0.35;
+    let on = 'historia';
+    secs.forEach((s)=>{ if (s.offsetTop <= y) on = s.id; });
+    jumps.forEach((a)=> a.classList.toggle('on', a.dataset.sec === on));
+  }
+  window.addEventListener('scroll', markJump, {passive:true});
+  if (location.hash === '#contacto') jumps.forEach((a)=> a.classList.toggle('on', a.dataset.sec === 'contacto'));
+})();
+</script>
+</body>
+</html>
