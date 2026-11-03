@@ -84,7 +84,26 @@
   .tp .v{font-size:13.5px;color:var(--ink-dim);line-height:1.55;}
 
   /* ---------- contacto ---------- */
-  .contact{display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:start;}
+  .contact{display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:stretch;}
+  .contact-side{display:flex;flex-direction:column;}
+
+  /* primera clase */
+  .trial{
+    flex:1;margin-top:10px;display:flex;flex-direction:column;justify-content:center;gap:11px;
+    padding:18px 24px;border:1px solid var(--line);border-left:3px solid var(--yellow);border-radius:3px;
+    background:linear-gradient(135deg,rgba(242,213,37,.07),rgba(232,35,127,.05) 70%),var(--bg-raised);
+  }
+  .trial .kicker{margin:0;}
+  .trial h3{font-size:26px;line-height:1.05;margin:0;}
+  .trial h3 em{font-family:var(--script);font-style:normal;color:var(--yellow);text-transform:none;}
+  .trial ol{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,1fr);gap:10px;counter-reset:st;}
+  .trial li{counter-increment:st;font-size:13.5px;line-height:1.4;color:var(--ink);}
+  .trial li::before{content:counter(st);display:block;font-family:var(--display);font-size:20px;color:var(--magenta);line-height:1;margin-bottom:4px;}
+  .trial .note{margin:0;font-size:13px;color:var(--ink-dim);}
+  .trial .note b{color:var(--paper);font-weight:600;}
+  .trial .links{display:flex;gap:18px;flex-wrap:wrap;}
+  .trial .links a{font-family:var(--display);font-size:15px;letter-spacing:.05em;text-transform:uppercase;color:var(--paper);border-bottom:2px solid var(--magenta);padding-bottom:2px;}
+  .trial .links a:hover{color:var(--yellow);border-color:var(--yellow);}
   .status{
     display:flex;align-items:center;gap:14px;padding:16px 20px;border-radius:3px;margin-bottom:18px;
     background:var(--bg-raised);border:1px solid var(--line);
@@ -114,7 +133,7 @@
   .ch--wide{grid-column:1 / -1;}
 
   /* formulario */
-  .form{background:var(--bg-raised);border:1px solid var(--line);border-top:3px solid var(--magenta);border-radius:3px;padding:28px;}
+  .form{display:flex;flex-direction:column;background:var(--bg-raised);border:1px solid var(--line);border-top:3px solid var(--magenta);border-radius:3px;padding:28px;}
   .form h3{font-size:26px;margin-bottom:6px;}
   .form > p{margin:0 0 20px;color:var(--ink-dim);font-size:14px;line-height:1.55;}
   .field{margin-bottom:16px;}
@@ -124,6 +143,8 @@
     font:inherit;font-size:15px;padding:12px 14px;transition:border-color .16s ease;
   }
   .field textarea{min-height:110px;resize:vertical;}
+  .field--grow{flex:1;display:flex;flex-direction:column;}
+  .field--grow textarea{flex:1;}
   .field input:focus,.field textarea:focus{outline:none;border-color:var(--magenta);}
   .chips{display:flex;flex-wrap:wrap;gap:8px;}
   .chip{
@@ -174,6 +195,9 @@
     .founder{padding:24px 20px;}
     .founder .mk-logo{width:70px;}
     .channels{grid-template-columns:1fr;}
+    .trial ol{grid-template-columns:1fr;gap:8px;}
+    .trial li{display:flex;gap:10px;align-items:baseline;}
+    .trial li::before{display:inline;margin:0;}
     .form{padding:22px 18px;}
     .place-info{padding:22px 20px;}
   }
@@ -304,7 +328,7 @@
   </div>
 
   <div class="contact">
-    <div>
+    <div class="contact-side">
       <div class="status" id="status">
         <span class="led"></span>
         <div><strong id="statusTitle">Horario de atención</strong><span id="statusSub">Lunes a viernes</span></div>
@@ -329,6 +353,18 @@
           <span><span class="t">Instagram</span><span class="v">@69monos_kny</span></span>
         </a>
       </div>
+
+      <div class="trial">
+        <p class="kicker">¿Es tu primera vez?</p>
+        <h3>Ven a probar una clase <em>gratis</em></h3>
+        <ol>
+          <li>Elige una clase en el horario.</li>
+          <li>Avísanos por WhatsApp o llámanos.</li>
+          <li>Ven con ropa cómoda y agua. Del resto nos encargamos.</li>
+        </ol>
+        <p class="note">Si te quedas, <b>el primer mes es gratis</b> (matrícula + seguro anual: 95€).</p>
+        <div class="links"><a href="horarios.html">Ver horarios</a><a href="precios.html">Ver precios</a></div>
+      </div>
     </div>
 
     <form class="form" id="form" novalidate>
@@ -342,7 +378,7 @@
         <span class="lbl" id="fTopicLbl">Me interesa</span>
         <div class="chips" id="topics" role="group" aria-labelledby="fTopicLbl"></div>
       </div>
-      <div class="field">
+      <div class="field field--grow">
         <label for="fMsg">Tu mensaje</label>
         <textarea id="fMsg" name="mensaje" placeholder="Cuéntanos qué quieres saber"></textarea>
       </div>
