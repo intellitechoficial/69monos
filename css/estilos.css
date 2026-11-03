@@ -222,7 +222,7 @@ footer h2{font-size:clamp(28px,5vw,48px);max-width:16ch;margin:0 auto 12px;line-
   .nav-links{gap:14px;}
   nav .brand-tag{display:none;}
   .mk-logo{width:52px;}
-  .hero-content{padding-bottom:28px;}
+  .hero-content{padding-top:100px;padding-bottom:28px;}
   .cta-row{gap:16px;}
   .kids-btn{position:static;align-self:flex-start;margin:22px 0 32px 28px;padding:11px 18px;font-size:12px;}
   .nav-panel{width:min(86vw,300px);padding:80px 24px 24px;}
