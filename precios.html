@@ -39,6 +39,17 @@
   .plan--life .stamp-btn{background:var(--yellow);color:#1a1405;box-shadow:4px 4px 0 var(--magenta);}
   .plan--life .stamp-btn:hover{box-shadow:6px 6px 0 var(--magenta);}
 
+  .first-month{
+    margin-top:34px;display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:10px 28px;
+    background:var(--yellow);color:#1a1405;border-radius:3px;padding:20px 28px;
+    box-shadow:6px 6px 0 var(--magenta);
+  }
+  .fm-tag{font-family:var(--display);font-size:12px;letter-spacing:.14em;text-transform:uppercase;background:#1a1405;color:var(--yellow);padding:6px 10px;border-radius:2px;}
+  .fm-main{margin:0;font-family:var(--display);font-size:clamp(24px,2.6vw,32px);text-transform:uppercase;letter-spacing:.02em;line-height:1.1;}
+  .fm-main em{color:var(--magenta);font-size:1.1em;}
+  .fm-sub{margin:0;font-size:15px;font-weight:600;line-height:1.4;text-align:right;}
+  .fm-sub strong{font-family:var(--display);font-weight:400;font-size:26px;letter-spacing:.02em;margin-left:4px;vertical-align:-2px;}
+
   .included{
     max-width:1180px;margin:0 auto;padding:44px 28px 30px;
     display:grid;grid-template-columns:repeat(4,1fr);gap:28px;
@@ -62,11 +73,14 @@
   footer.footer--slim .copyright{margin-top:0;padding-top:0;border-top:0;}
 
   @media (max-width:980px){
+    .first-month{grid-template-columns:1fr;justify-items:start;}
+    .fm-sub{text-align:left;}
     .plans{grid-template-columns:1fr 1fr;}
     .plan--life{grid-column:1 / -1;}
     .included{grid-template-columns:repeat(2,1fr);}
   }
   @media (max-width:640px){
+    .first-month{padding:20px;margin-top:30px;}
     .pricing{padding:16px 18px 30px;}
     .plans{grid-template-columns:1fr;gap:26px;}
     .plan{padding:26px 22px 24px;}
@@ -180,6 +194,12 @@
       <a class="stamp-btn" href="mailto:info@69monos.com?subject=Pase%20de%20por%20vida">Quiero el pase</a>
     </article>
 
+  </div>
+
+  <div class="first-month">
+    <span class="fm-tag">Oferta de bienvenida</span>
+    <p class="fm-main">El primer mes es <em>gratis</em>.</p>
+    <p class="fm-sub">Solo pagas la matrícula y el seguro anual: <strong>95€</strong></p>
   </div>
 </section>
 
