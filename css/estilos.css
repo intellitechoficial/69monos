@@ -202,6 +202,8 @@ footer{position:relative;z-index:1;border-top:1px solid var(--line);padding:56px
 footer > .eyebrow{margin-bottom:10px;}
 footer h2{font-size:clamp(28px,5vw,48px);max-width:16ch;margin:0 auto 12px;line-height:1.16;}
 .footer-sub{max-width:46ch;margin:0 auto 22px;color:var(--ink-dim);font-size:15px;line-height:1.6;}
+.footer-sub--2{max-width:none;}
+@media (max-width:640px){.footer-sub--2{max-width:46ch;} .footer-sub--2 .br-desk{display:none;}}
 .footer-bottom{
   display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:24px;
   max-width:1080px;margin:48px auto 0;padding-top:22px;border-top:1px solid var(--line);text-align:left;
