@@ -111,12 +111,41 @@
   .btn-mail:hover{box-shadow:6px 6px 0 var(--magenta);}
   .form-err{color:#ff8fbf;font-size:13px;margin:10px 0 0;min-height:1em;}
 
+
+  /* ---------- sin avisar ---------- */
+  .noaviso{
+    display:flex;align-items:center;gap:22px;padding:22px 28px;border-radius:3px;
+    background:var(--yellow);color:#1a1405;box-shadow:6px 6px 0 var(--magenta);
+  }
+  .noaviso svg{flex:none;}
+  .noaviso strong{display:block;font-family:var(--display);font-weight:400;font-size:clamp(26px,3vw,36px);line-height:1.05;text-transform:uppercase;letter-spacing:.01em;}
+  .noaviso span{display:block;margin-top:4px;font-size:15.5px;font-weight:600;line-height:1.5;}
+  .steps a{color:var(--yellow);border-bottom:1px solid currentColor;}
+
+  /* ---------- donde ---------- */
+  .where{padding:28px;border:1px solid var(--line);border-top:3px solid var(--magenta);border-radius:3px;background:var(--bg-raised);display:flex;flex-direction:column;gap:8px;}
+  .where .kicker{margin:0;}
+  .where h3{font-size:30px;line-height:1.1;margin:0;}
+  .where > p{margin:0 0 8px;color:var(--ink);font-size:15px;}
+  .where-btns{display:flex;align-items:center;gap:22px;flex-wrap:wrap;}
+  .text-cta{font-family:var(--display);font-size:15px;letter-spacing:.05em;text-transform:uppercase;color:var(--paper);border-bottom:2px solid var(--magenta);padding-bottom:2px;}
+  .text-cta:hover{color:var(--yellow);border-color:var(--yellow);}
+  .where .who{margin-top:auto;padding-top:20px;border-top:1px solid var(--line);}
+  .where .who p{margin:0 0 10px;font-size:14px;color:var(--ink-dim);line-height:1.55;}
+  .where .who a{display:block;font-family:var(--display);font-size:20px;color:var(--paper);letter-spacing:.03em;}
+  .where .who a span{font-family:inherit;font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-dim);margin-right:10px;}
+  .where .who a:hover{color:var(--yellow);}
+  .d{cursor:default;}
+  .d:hover{transform:none;box-shadow:none;border-color:var(--line);}
+  .d .n{padding-right:0;}
+  .book{grid-template-columns:1fr 1fr;}
+
   footer.footer--slim{padding-top:60px;}
   footer.footer--slim .copyright{margin-top:0;padding-top:0;border-top:0;}
 
   @media (max-width:980px){
     .disc{grid-template-columns:repeat(2,1fr);}
-    .book{grid-template-columns:1fr;}
+    .book{grid-template-columns:1fr !important;}
   }
   @media (max-width:760px){
     .wrap{padding:0 18px;}
@@ -131,7 +160,8 @@
     .d .n{font-size:18px;}
     .d--wide{grid-column:span 2;}
     .row2{grid-template-columns:1fr;gap:0;}
-    .form,.bring{padding:22px 18px;}
+    .where,.bring{padding:22px 18px;}
+    .noaviso{flex-direction:column;align-items:flex-start;gap:12px;padding:20px;}
   }
 </style>
 </head>
@@ -190,7 +220,18 @@
 
   <div class="hero-content">
     <h1>Ven a probar. <em>Te regalamos 2 días</em>.</h1>
-    <p class="subtitle">Sin compromiso. Entrena con nosotros, conoce a los monitores y decide después.</p>
+    <p class="subtitle">Sin compromiso y sin reservar: ven el día que quieras y entrena con nosotros.</p>
+  </div>
+</section>
+
+<!-- ===================== SIN AVISAR ===================== -->
+<section class="block wrap">
+  <div class="noaviso">
+    <svg viewBox="0 0 24 24" width="44" height="44" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 4h3a2 2 0 0 1 2 2v14"/><path d="M2 20h3"/><path d="M13 20h9"/><path d="M10 12v.01"/><path d="M13 4.56v16.01a.5.5 0 0 1-.68.47L5 18V5.12a1 1 0 0 1 .76-.97l6-1.5a1 1 0 0 1 1.24.97z"/></svg>
+    <div>
+      <strong>No hace falta avisar.</strong>
+      <span>Solo ven y prueba en el momento que quieras. Entra a la clase que te apetezca y preséntate al monitor.</span>
+    </div>
   </div>
 </section>
 
@@ -213,9 +254,9 @@
     <h2>Tres pasos y <em>estás dentro</em>.</h2>
   </div>
   <ol class="steps">
-    <li><h3>Elige qué probar</h3><p>Marca abajo las disciplinas que te llaman. Puedes elegir varias.</p></li>
-    <li><h3>Reserva tu prueba</h3><p>Envíanos tus datos por WhatsApp o email y te decimos qué clases te encajan.</p></li>
-    <li><h3>Ven a entrenar</h3><p>Preséntate en C/ Bellaterra, 41 (Cornellà) y entrena dos días con nosotros.</p></li>
+    <li><h3>Elige qué probar</h3><p>Echa un vistazo a nuestras clases y quédate con las que te llamen.</p></li>
+    <li><h3>Mira el horario</h3><p>Busca la clase que te encaje en el <a href="horarios.html">horario</a>. No tienes que reservar.</p></li>
+    <li><h3>Ven a entrenar</h3><p>Preséntate en C/ Bellaterra, 41 (Cornellà) cuando quieras, sin avisar.</p></li>
   </ol>
 </section>
 
@@ -224,20 +265,16 @@
   <div class="block-head">
     <p class="kicker">Nuestras clases</p>
     <h2>¿Qué quieres <em>probar</em>?</h2>
-    <p>Dirigidas a todos los públicos, de forma practicante, amateur o profesional. Toca las que te interesen y se añadirán a tu reserva.</p>
+    <p>Dirigidas a todos los públicos, de forma practicante, amateur o profesional.</p>
   </div>
   <div class="disc" id="disc"></div>
-  <div class="disc-foot">
-    <span id="discCount">Aún no has elegido ninguna.</span>
-    <button class="linkbtn" type="button" id="discClear" hidden>Quitar todas</button>
-  </div>
 </section>
 
-<!-- ===================== RESERVA ===================== -->
-<section class="block wrap" id="reserva">
+<!-- ===================== VEN ===================== -->
+<section class="block wrap" id="ven">
   <div class="block-head">
-    <p class="kicker">Reserva</p>
-    <h2>Pide tus <em>2 días gratis</em>.</h2>
+    <p class="kicker">Antes de venir</p>
+    <h2>Solo tienes que <em>presentarte</em>.</h2>
   </div>
 
   <div class="book">
@@ -249,51 +286,22 @@
         <li><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5L20 7"/></svg>Si tienes guantes o protecciones, tráelos. Si no, pregúntanos.</li>
         <li><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5L20 7"/></svg>Ganas. No hace falta experiencia previa.</li>
       </ul>
+    </aside>
+
+    <div class="where">
+      <p class="kicker">Dónde estamos</p>
+      <h3>C/ Bellaterra, 41</h3>
+      <p>08940 Cornellà de Llobregat, Barcelona</p>
+      <div class="where-btns">
+        <a class="stamp-btn" href="https://www.google.com/maps/dir/?api=1&destination=41.3572438,2.0744555" target="_blank" rel="noopener">Cómo llegar</a>
+        <a class="text-cta" href="horarios.html">Ver horarios</a>
+      </div>
       <div class="who">
-        <p>¿Prefieres hablar con alguien? Infórmate por WhatsApp, llamando o pasándote por el centro.</p>
+        <p>¿Tienes alguna duda antes de venir? Escríbenos o llámanos.</p>
         <a href="tel:+34661571448"><span>Información</span>661 57 14 48</a>
         <a href="tel:+34661571220"><span>Administración</span>661 57 12 20</a>
       </div>
-    </aside>
-
-    <form class="form" id="form" novalidate>
-      <h3>Tus datos</h3>
-      <p>Rellena esto y elige cómo enviarlo: se abrirá WhatsApp o tu correo con el mensaje ya escrito.</p>
-      <div class="row2">
-        <div class="field">
-          <label for="fName">Tu nombre</label>
-          <input id="fName" autocomplete="name" placeholder="Nombre y apellido">
-        </div>
-        <div class="field">
-          <label for="fAge">Edad</label>
-          <input id="fAge" inputmode="numeric" maxlength="2" placeholder="Ej. 28">
-        </div>
-      </div>
-      <div class="field">
-        <span class="lbl">Quiero probar</span>
-        <div class="picked" id="picked"></div>
-      </div>
-      <div class="field">
-        <span class="lbl" id="lvlLbl">Mi nivel</span>
-        <div class="chips" id="lvl" role="group" aria-labelledby="lvlLbl" data-single></div>
-      </div>
-      <div class="field">
-        <span class="lbl" id="whenLbl">Prefiero venir</span>
-        <div class="chips" id="when" role="group" aria-labelledby="whenLbl" data-single></div>
-      </div>
-      <div class="field">
-        <label for="fMsg">Algo más (opcional)</label>
-        <textarea id="fMsg" placeholder="Lesiones, dudas, si vienes con alguien…"></textarea>
-      </div>
-      <div class="send">
-        <button class="stamp-btn btn-wa" type="button" id="sendWa">
-          <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.700-.8s-.4-.1-.6.1-.6.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3a.5.5 0 0 0 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 2.9 2.9 0 0 0-.9 2.2 5.1 5.1 0 0 0 1.1 2.7 11.6 11.6 0 0 0 4.4 3.9c1.6.7 2.3.8 3.1.6a2.7 2.7 0 0 0 1.8-1.2 2.2 2.2 0 0 0 .1-1.3c0-.1-.2-.2-.5-.3Z"/></svg>
-          Enviar por WhatsApp
-        </button>
-        <button class="stamp-btn btn-mail" type="button" id="sendMail">Enviar por email</button>
-      </div>
-      <p class="form-err" id="formErr" aria-live="polite"></p>
-    </form>
+    </div>
   </div>
 </section>
 
@@ -317,73 +325,9 @@
     {n:'Circuitos funcionales', s:'Indoor y outdoor.'},
     {n:'Preparación de competición', s:'Para quien quiere subir al ring o a la jaula.', w:1}
   ];
-  const KEY = 'mk-prueba-disc';
-  let chosen = new Set();
-  try { (JSON.parse(localStorage.getItem(KEY)) || []).forEach((n)=> DISC.some((d)=> d.n === n) && chosen.add(n)); } catch(e){}
-  const save = ()=>{ try { localStorage.setItem(KEY, JSON.stringify([...chosen])); } catch(e){} };
-
-  const check = '<svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5L20 7"/></svg>';
-  const discEl = document.getElementById('disc');
-  discEl.innerHTML = DISC.map((d)=>
-    '<button type="button" class="d'+(d.w?' d--wide':'')+'" aria-pressed="false" data-n="'+d.n+'"><span class="ck">'+check+'</span><span class="n">'+d.n+'</span><span class="s">'+d.s+'</span></button>'
+  document.getElementById('disc').innerHTML = DISC.map((d)=>
+    '<div class="d'+(d.w?' d--wide':'')+'"><span class="n">'+d.n+'</span><span class="s">'+d.s+'</span></div>'
   ).join('');
-  const countEl = document.getElementById('discCount'), clearEl = document.getElementById('discClear'), pickedEl = document.getElementById('picked');
-
-  function render(){
-    discEl.querySelectorAll('.d').forEach((b)=> b.setAttribute('aria-pressed', String(chosen.has(b.dataset.n))));
-    const n = chosen.size;
-    countEl.innerHTML = n ? 'Has elegido <b>'+n+'</b> '+(n === 1 ? 'disciplina' : 'disciplinas')+'.' : 'Aún no has elegido ninguna.';
-    clearEl.hidden = !n;
-    pickedEl.innerHTML = n
-      ? DISC.filter((d)=> chosen.has(d.n)).map((d)=> '<span class="p">'+d.n+'</span>').join('')
-      : 'Elige arriba las disciplinas, o déjalo en blanco si quieres que te aconsejemos.';
-  }
-  discEl.addEventListener('click',(e)=>{
-    const b = e.target.closest('.d'); if (!b) return;
-    const n = b.dataset.n; chosen.has(n) ? chosen.delete(n) : chosen.add(n);
-    save(); render();
-  });
-  clearEl.addEventListener('click',()=>{ chosen.clear(); save(); render(); });
-  render();
-
-  /* chips de selección única */
-  function single(id, opts){
-    const el = document.getElementById(id);
-    el.innerHTML = opts.map((t)=> '<button type="button" class="chip" aria-pressed="false" data-t="'+t+'">'+t+'</button>').join('');
-    let val = '';
-    el.addEventListener('click',(e)=>{
-      const b = e.target.closest('.chip'); if (!b) return;
-      val = (val === b.dataset.t) ? '' : b.dataset.t;
-      el.querySelectorAll('.chip').forEach((c)=> c.setAttribute('aria-pressed', String(c.dataset.t === val)));
-    });
-    return ()=> val;
-  }
-  const getLvl = single('lvl', ['Nunca he entrenado','Algo de experiencia','Compito']);
-  const getWhen = single('when', ['Mañanas','Tardes','Me da igual']);
-
-  const nameEl = document.getElementById('fName'), ageEl = document.getElementById('fAge'), msgEl = document.getElementById('fMsg'), err = document.getElementById('formErr');
-  ageEl.addEventListener('input',()=>{ ageEl.value = ageEl.value.replace(/\D/g,''); });
-
-  function compose(){
-    const name = nameEl.value.trim();
-    if (!name){ err.textContent = 'Escribe tu nombre para reservar la prueba.'; nameEl.focus(); return null; }
-    err.textContent = '';
-    let out = 'Hola 69 Monos, soy '+name+(ageEl.value ? ' ('+ageEl.value+' años)' : '')+'. Quiero reservar mis 2 días de prueba gratis.';
-    if (chosen.size) out += '\nMe gustaría probar: '+DISC.filter((d)=> chosen.has(d.n)).map((d)=> d.n).join(', ')+'.';
-    if (getLvl()) out += '\nNivel: '+getLvl()+'.';
-    if (getWhen()) out += '\nPrefiero venir: '+getWhen().toLowerCase()+'.';
-    const msg = msgEl.value.trim();
-    if (msg) out += '\n\n'+msg;
-    return out;
-  }
-  document.getElementById('sendWa').addEventListener('click',()=>{
-    const m = compose(); if (!m) return;
-    window.open('https://wa.me/34661571448?text='+encodeURIComponent(m), '_blank', 'noopener');
-  });
-  document.getElementById('sendMail').addEventListener('click',()=>{
-    const m = compose(); if (!m) return;
-    location.href = 'mailto:info@69monos.com?subject='+encodeURIComponent('Prueba gratis 2 días')+'&body='+encodeURIComponent(m);
-  });
 })();
 </script>
 </body>
