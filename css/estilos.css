@@ -299,3 +299,9 @@ footer.footer--slim .copyright{margin-top:70px;padding-top:26px;border-top:1px s
 /* nota discreta IA */
 .ai-note{opacity:.55;white-space:nowrap;}
 @media (max-width:640px){.ai-note{display:block;margin-top:4px;} .ai-dot{display:none;}}
+
+/* ---------- móvil: sin recuadro azul al tocar ---------- */
+html{-webkit-tap-highlight-color:transparent;}
+*{-webkit-tap-highlight-color:transparent;}
+.mk-logo,.mk-logo *,.brand,.brand *{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;}
+.mk-logo img{-webkit-user-drag:none;pointer-events:none;}
