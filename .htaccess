@@ -1,0 +1,31 @@
+# Redirecciones 301 de las URLs de la antigua web de Wix (siguen en Google)
+RewriteEngine On
+
+# Forzar HTTPS
+RewriteCond %{HTTPS} off
+RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# Horarios y precios
+RewriteRule ^horarios-y-precios/?$ /horarios.html [L,R=301,NC]
+RewriteRule ^clases/todas-los-horarios/?$ /horarios.html [L,R=301,NC]
+RewriteRule ^precios/?$ /precios.html [L,R=301,NC]
+RewriteRule ^pricing-plans(/.*)?$ /precios.html [L,R=301,NC]
+
+# Infantil
+RewriteRule ^clases-infantiles/?$ /zona-kids.html [L,R=301,NC]
+RewriteRule ^clases/(clases-de-mma-infantil|mma-cadete|mma-junior)/?$ /zona-kids.html [L,R=301,NC]
+
+# Clases (boxeo, MMA, muay thai, lucha, BJJ...) -> disciplinas de la portada
+RewriteRule ^clases(/.*)?$ /#disciplinas [L,R=301,NC,NE]
+
+# Centro / historia / contacto
+RewriteRule ^(contacto|nuestra-historia|nuestra-compa.*|gimnasio|about-.*|que-ofrecemos)/?$ /historia-contacto.html [L,R=301,NC]
+
+# Resto de páginas antiguas de Wix
+RewriteRule ^(index\.php|combat-time|fight-sport|videos|shop|tie|services-.*|projects-.*|s-projects-.*|product-page/.*)/?$ / [L,R=301,NC]
+
+# Cualquier otra URL inexistente -> portada
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_URI} !\.[a-z0-9]+$ [NC]
+RewriteRule ^ / [L,R=301]
